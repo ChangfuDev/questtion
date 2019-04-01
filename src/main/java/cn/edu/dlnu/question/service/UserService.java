@@ -7,4 +7,6 @@ public interface UserService {
   User getById(Integer id);
 
   User findByName(String name);
+
+  boolean add(User user);
 }

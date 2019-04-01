@@ -67,26 +67,26 @@
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true">
         </table>
-        <table schema="question" tableName="tb_permission"
-               domainObjectName="Permission" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true">
-        </table>
+<!--        <table schema="question" tableName="tb_permission"-->
+<!--               domainObjectName="Permission" enableCountByExample="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--        </table>-->
         <table schema="question" tableName="tb_city"
                domainObjectName="City" enableCountByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                enableUpdateByExample="true">
         </table>
-        <table schema="question" tableName="tb_roles"
-          domainObjectName="Role" enableCountByExample="true"
-          enableDeleteByExample="true" enableSelectByExample="true"
-          enableUpdateByExample="true">
-        </table>
-        <table schema="question" tableName="tb_user"
-               domainObjectName="User" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true">
-        </table>
+<!--        <table schema="question" tableName="tb_roles"-->
+<!--          domainObjectName="Role" enableCountByExample="true"-->
+<!--          enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--          enableUpdateByExample="true">-->
+<!--        </table>-->
+<!--        <table schema="question" tableName="tb_user"-->
+<!--               domainObjectName="User" enableCountByExample="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--        </table>-->
 
 
     </context>

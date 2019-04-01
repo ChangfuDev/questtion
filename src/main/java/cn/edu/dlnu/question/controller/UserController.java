@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -36,15 +37,23 @@ public class UserController {
       @ApiImplicitParam(paramType = "query", name = "rememberMe", value = "是否记录该用户", required = true, dataType = "boolean")
   })
   @PostMapping(value = "/login")
-  public String login(String username, String password, Boolean rememberMe) {
+  public String login(@RequestParam("username") String username,
+      @RequestParam("password") String password, @RequestParam("rememberMe") Boolean rememberMe) {
     System.out.println(username);
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
-    try{
+    try {
       SecurityUtils.getSubject().login(token);
-    }catch (Exception e){
+    } catch (Exception e) {
       return "fail";
     }
     return "success";
+  }
+
+  @ApiOperation(value = "添加用户", notes = "通过User对象进行添加")
+  @ApiImplicitParam(paramType = "query", name = "user", value = "User对象", required = true, dataType = "user")
+  @PostMapping("/add")
+  public boolean add(@RequestParam("user") User user) {
+    return userService.add(user);
   }
 
 
