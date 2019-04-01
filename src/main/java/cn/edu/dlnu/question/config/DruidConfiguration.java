@@ -1,4 +1,4 @@
-package cn.edu.dlnu.questtion.config;
+package cn.edu.dlnu.question.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
