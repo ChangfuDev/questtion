@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>艺术生咨询系统</title>
+  <title>艺术生咨询系统首页</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
@@ -11,18 +11,12 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-  <link
-      href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
-      rel="stylesheet"/>
-  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
           integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
           crossorigin="anonymous"></script>
-  <script
-      src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
   <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-  <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
   <style>
     * {
       padding: 0px;
@@ -30,7 +24,6 @@
     }
 
     body {
-
       height: 100%;
       width: 100%;
       /*width: 100%;*/
@@ -38,7 +31,6 @@
       position: fixed;
       background: url('images/bg1.jpg') no-repeat;
       text-align: center;
-
 
     }
 
@@ -64,16 +56,15 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-             aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
+             aria-haspopup="true" aria-expanded="false">用户中心<span id="username"></span> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
               <a href="#" class="col-md-12" data-toggle="modal" data-target="#myModal">修改密码</a>
             </li>
-            <li><a href="#" class="col-md-12" data-toggle="modal" data-target="#myModal2">相关管理</a>
+            <li><a href="/admin/index.html" class="col-md-12">相关管理</a>
             </li>
-
             <li role="separator" class="divider"></li>
-            <li><a href="#" class="col-md-12">退出登录</a></li>
+            <li><a href="#">退出登录</a></li>
           </ul>
         </li>
       </ul>
@@ -81,9 +72,6 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div class="row " id="container" style="margin-top: 100px">
-
-
-
 </div>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -128,16 +116,11 @@
   </div><!-- /.modal -->
 </div>
 
-
 <script>
   window.onload = function (ev) {
-    var curRow = {};
-    console.log(sessionStorage.getItem("username"))
     var username = sessionStorage.getItem("username")
-
     $("#username").text(username)
     loadCity();
-    loadTable();
 
   }
 
@@ -147,20 +130,22 @@
     $.ajax({
       type: "get",
       url: "/city/year/" + year,
-      async: 'false',
+      async: 'true',
       success: function (data) {
         console.log(data)
-        var a_data="";
-        if (data.length >0) {
+        var a_data = "";
+        if (data.length > 0) {
 
-          for(var i = 0; i < data.length/4; i++){
+          for (var i = 0; i < data.length / 4; i++) {
             a_data += "<div class=\"row col-md-12\" style=\"margin-top: 50px\">"
-            for(var j = 4*i;j< 4*i+4&&j<data.length;j++){
-              a_data+="<a href=\"select.html?data="+data[j].id+"\" class=\"btn btn-primary btn-lg active \" role=\"button\"\n"
-                  + "       style=\"opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px\">"+data[j].name+"\n"
+            for (var j = 4 * i; j < 4 * i + 4 && j < data.length; j++) {
+              a_data += "<a href=\"select.html?data=" + data[j].id
+                  + "\" class=\"btn btn-primary btn-lg active \" role=\"button\"\n"
+                  + "       style=\"opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px\">"
+                  + data[j].name + "\n"
                   + "    </a>";
             }
-            a_data+="</div>"
+            a_data += "</div>"
 
           }
           console.log(a_data)

@@ -88,11 +88,13 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-             aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
+             aria-haspopup="true" aria-expanded="false">用户中心<span id="name"></span> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">修改密码</a></li>
-            <li><a href="#">人员管理</a></li>
-            <li><a href="#">总分算法管理</a></li>
+            <li>
+              <a href="#" class="col-md-12" data-toggle="modal" data-target="#myModal">修改密码</a>
+            </li>
+            <li><a href="/admin/index.html" class="col-md-12">相关管理</a>
+            </li>
             <li role="separator" class="divider"></li>
             <li><a href="#">退出登录</a></li>
           </ul>
@@ -161,10 +163,53 @@
   </div>
 
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          修改密码
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form id="Form" action="/user/update" method="post">
+          <div class="form-group">
+            <label for="password">原密码</label>
+            <input type="password" class="form-control" id="password" name="password"
+                   placeholder="原密码">
+          </div>
+          <div class="form-group">
+            <label for="newpassword">新密码</label>
+            <input type="password" class="form-control" id="newpassword" name="newpassword"
+                   placeholder="新密码">
+          </div>
+          <div class="form-group">
+            <label for="repassword">确认新密码</label>
+            <input type="password" class="form-control" id="repassword" name="repassword"
+                   placeholder="确认新密码">
+          </div>
+
+          <button type="submit" class="btn btn-default">更改</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
 <script>
   $(function () {
     var id = getParams("data");
     $("#city_id").attr("value", id)
+    var name = sessionStorage.getItem("username")
+    $("#name").text(name)
   });
   function getParams(key) {
     var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
