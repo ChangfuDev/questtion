@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>艺术生咨询系统</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+          integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+          crossorigin="anonymous"></script>
+  <style>
+
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    body {
+
+      height: 100%;
+      width: 100%;
+      /*width: 100%;*/
+      border: 1px solid green;
+      position: fixed;
+      background: url('images/bg1.jpg') no-repeat;
+      text-align: center;
+
+
+    }
+
+    .radio_box {
+      display: inline-block;
+      position: relative;
+    }
+
+    .radio_box label {
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 2px solid #ef4949;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .radio_box input:checked + label:after {
+      content: '';
+      width: 9px;
+      height: 9px;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      background: #ef4949;
+      border-radius: 50%;
+    }
+
+    .check_box em {
+      margin: 0 0 0 5px;
+    }
+
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse" style="border-radius: 0px;margin-top: 0px;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">大连民族大学艺术生咨询系统</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+             aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">修改密码</a></li>
+            <li><a href="#">人员管理</a></li>
+            <li><a href="#">总分算法管理</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">退出登录</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="row">
+  <div class=" col-md-2" style="height:550px;padding-top: 200px;">
+
+    <form id="Form" style="background-color: white;opacity: 0.8;padding: 20px" action="/student/add"
+          method="post">
+      <input type="hidden" id="city_id" name="city_id" value="1">
+      <label for="username" class="row" style="display: flex"><span class="col-md-12"
+                                                                    style="display: table-cell;vertical-align:middle">姓名:</span>
+        <input type="number" class="form-control col-md-6" id="username" name="username"
+               placeholder="姓名"></label>
+      <label for="c_grade" class="row" style="display: flex"><span class="col-md-12"
+                                                                   style="display: table-cell;vertical-align:middle">文化成绩:</span>
+        <input type="number" class="form-control col-md-6" id="c_grade" name="c_grade"
+               placeholder="文化成绩"></label>
+      <label for="a_grade" class="row" style="display: flex"><span class="col-md-12"
+                                                                   style="display: table-cell;vertical-align:middle">艺术成绩:</span>
+        <input type="number" class="form-control col-md-6" id="a_grade" name="a_grade"
+               placeholder="艺术成绩"></label>
+      <div class="radio">
+        <label>
+          <input type="radio" name="type" id="optionsRadios1"
+                 value="1" checked>文科
+        </label>
+        <label>
+          <input type="radio" name="type" id="optionsRadios2"
+                 value="2">
+          理科
+        </label>
+      </div>
+      <button type="submit" class="btn btn-default">添加并查询</button>
+    </form>
+  </div>
+  <div class="col-md-offset-1 col-md-7">
+    <table class="table  table-striped  table-bordered table-hover"
+           style="background-color: white;opacity: 0.8;margin: 0px;">
+      <thead>
+      <tr>
+        <th style="text-align: center;width: 200px">序号</th>
+        <th style="text-align: center;width: 400px">考生名</th>
+        <th style="text-align: center">总分</th>
+      </tr>
+      </thead>
+    </table>
+    <div data-spy="scroll" data-target="#navbar-example" data-offset="0"
+         style="height:550px;overflow:auto; position: relative; ">
+
+      <table class="table  table-striped  table-bordered table-hover"
+             style="background-color: white;opacity: 0.8;height:550px;">
+
+        <tbody id="table">
+        <tr>
+          <td colspan="3">请开始查找</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+<script>
+  $(function () {
+    var id = getParams("data");
+    $("#city_id").attr("value", id)
+  });
+  function getParams(key) {
+    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+      return unescape(r[2]);
+    }
+    return null;
+  };
+  $("form").submit(function () {
+        var username = $("input[name='username']").val();
+        var c_grade = $("input[name='c_grade']").val();
+        var a_grade = $("input[name='a_grade']").val();
+        var city_id = $("input[name='city_id']").val();
+        var type = $("input[name='type']").val();
+
+        if (c_grade == "" || c_grade == null || c_grade == undefined || username == ""
+            || username == null || username == undefined || a_grade == "" || a_grade == null
+            || a_grade == undefined || city_id == "" || city_id == null
+            || city_id == undefined) {
+          alert("请输入完整信息");
+          return false;/*阻止表单提交*/
+        }
+
+        $.ajax({
+          type: "post",
+          url: "/student/add",
+          async: 'false',
+          success: function (data) {
+            console.log(data)
+            if (data != "0") {
+              alert("添加成功")
+              loadStudent(data);
+            } else {
+              alert("修改失败")
+            }
+          },
+          data: {'username': username, 'c_grade': c_grade, 'a_grade': a_grade, 'city_id': city_id}
+        });
+        return false;
+
+      }
+  )
+  function loadStudent(index) {
+
+    $("#table").empty()
+    $.ajax({
+      type: "get",
+      url: "/student/findAll",
+      async: 'false',
+      success: function (data) {
+        console.log(data)
+        var table_data = "";
+        for(var i = 0; i< data.length;i++){
+          if(data[i].id == index){
+            table_data += "<tr style='background-color: red'>\n"
+                + "          <td style=\"width: 200px\">"+(i+1)+"</td>\n"
+                + "          <td style=\"width: 400px\">"+data[i].name+"</td>\n"
+                + "          <td>"+data[i].totalGrade+"</td>\n"
+                + "        </tr>"
+          }else{
+            table_data += "<tr>\n"
+                + "          <td style=\"width: 200px\">"+(i+1)+"</td>\n"
+                + "          <td style=\"width: 400px\">"+data[i].name+"</td>\n"
+                + "          <td>"+data[i].totalGrade+"</td>\n"
+                + "        </tr>"
+          }
+
+        }
+        $("#table").append(table_data)
+
+      },
+    });
+  }
+</script>
+</body>
+
+</html>

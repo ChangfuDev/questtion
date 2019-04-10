@@ -3,9 +3,11 @@ package cn.edu.dlnu.question;
 import cn.edu.dlnu.question.dao.UserMapper;
 import cn.edu.dlnu.question.entity.City;
 import cn.edu.dlnu.question.entity.Permission;
+import cn.edu.dlnu.question.entity.Student;
 import cn.edu.dlnu.question.entity.User;
 import cn.edu.dlnu.question.service.CityService;
 import cn.edu.dlnu.question.service.PermissionService;
+import cn.edu.dlnu.question.service.StudentService;
 import cn.edu.dlnu.question.service.UserService;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,6 +31,9 @@ public class QuesttionApplicationTests {
 
   @Autowired
   private PermissionService permissionService;
+
+  @Autowired
+  private StudentService studentService;
 
   @Test
   public void contextLoads() {
@@ -59,6 +64,12 @@ public class QuesttionApplicationTests {
   @Test
   public void testGetAll() {
     List<Permission> all = permissionService.findAll();
+    System.out.println(all.toString());
+
+  }
+  @Test
+  public void testFindAll() {
+    List<Student> all = studentService.findAll();
     System.out.println(all.toString());
 
   }

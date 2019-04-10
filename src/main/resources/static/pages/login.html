@@ -80,7 +80,10 @@
           success:function (data) {
             console.log(data)
             if(data == "success"){
+              sessionStorage.setItem("username",username)
               window.location.href="/index.html"
+            }else{
+              alert("帐号或者密码错误")
             }
           },
           data:{'username':username,'password':password,'rememberMe':'true'}
@@ -89,5 +92,8 @@
 
       }
   )
+
+
+
 </script>
 </html>

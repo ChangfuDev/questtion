@@ -6,14 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
   <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
-  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <link
+      href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
+      rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css">
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
           integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
           crossorigin="anonymous"></script>
+  <script
+      src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
   <style>
     * {
       padding: 0px;
@@ -57,43 +66,156 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
              aria-haspopup="true" aria-expanded="false">用户中心 <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">修改密码</a></li>
-            <li><a href="#">人员管理</a></li>
-            <li><a href="#">总分算法管理</a></li>
+            <li>
+              <a href="#" class="col-md-12" data-toggle="modal" data-target="#myModal">修改密码</a>
+            </li>
+            <li><a href="#" class="col-md-12" data-toggle="modal" data-target="#myModal2">相关管理</a>
+            </li>
+
             <li role="separator" class="divider"></li>
-            <li><a href="#">退出登录</a></li>
+            <li><a href="#" class="col-md-12">退出登录</a></li>
           </ul>
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="row" style="margin-top: 100px">
-  <div class="row" style="margin-top: 50px">
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px">辽宁
-      </a>
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity:0.7;margin: 0px 20px 0px 20px;width: 100px">吉林
-      </a>
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px">黑龙江
-      </a>
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px">内蒙古
-      </a>
+<div class="row " id="container" style="margin-top: 100px">
 
-  </div>
-  <div class="row" style="margin-top: 50px">
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px">河北
-      </a>
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px">山东
-      </a>
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px">山西
-      </a>
-    <a href="#" class="btn btn-primary btn-lg active" role="button" style="opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px">湖南
-      </a>
-  </div>
 
 
 </div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+          &times;
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          修改密码
+        </h4>
+      </div>
+      <div class="modal-body">
+        <form id="Form" action="/user/update" method="post">
+          <div class="form-group">
+            <label for="password">原密码</label>
+            <input type="password" class="form-control" id="password" name="password"
+                   placeholder="原密码">
+          </div>
+          <div class="form-group">
+            <label for="newpassword">新密码</label>
+            <input type="password" class="form-control" id="newpassword" name="newpassword"
+                   placeholder="新密码">
+          </div>
+          <div class="form-group">
+            <label for="repassword">确认新密码</label>
+            <input type="password" class="form-control" id="repassword" name="repassword"
+                   placeholder="确认新密码">
+          </div>
 
+          <button type="submit" class="btn btn-default">更改</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+        </button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+</div>
+
+
+<script>
+  window.onload = function (ev) {
+    var curRow = {};
+    console.log(sessionStorage.getItem("username"))
+    var username = sessionStorage.getItem("username")
+
+    $("#username").text(username)
+    loadCity();
+    loadTable();
+
+  }
+
+  function loadCity() {
+    var year = new Date().getUTCFullYear();
+    console.log(year)
+    $.ajax({
+      type: "get",
+      url: "/city/year/" + year,
+      async: 'false',
+      success: function (data) {
+        console.log(data)
+        var a_data="";
+        if (data.length >0) {
+
+          for(var i = 0; i < data.length/4; i++){
+            a_data += "<div class=\"row col-md-12\" style=\"margin-top: 50px\">"
+            for(var j = 4*i;j< 4*i+4&&j<data.length;j++){
+              a_data+="<a href=\"select.html?data="+data[j].id+"\" class=\"btn btn-primary btn-lg active \" role=\"button\"\n"
+                  + "       style=\"opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px\">"+data[j].name+"\n"
+                  + "    </a>";
+            }
+            a_data+="</div>"
+
+          }
+          console.log(a_data)
+          $("#container").append(a_data)
+        } else {
+          alert("未加载到数据")
+        }
+      }
+    });
+  }
+
+  $("form").submit(function () {
+        var password = $("input[name='password']").val();
+        var newpassword = $("input[name='newpassword']").val();
+        var repassword = $("input[name='repassword']").val();
+        var username = sessionStorage.getItem("username");
+        if (username == "" || username == null || username == undefined) {
+          alert("帐号出错");
+          return false;/*阻止表单提交*/
+        }
+        if (password == "" || password == null || password == undefined || newpassword == ""
+            || newpassword == null || newpassword == undefined || repassword == "" || repassword == null
+            || repassword == undefined) {
+          alert("请输入密码");
+          return false;/*阻止表单提交*/
+        }
+        if (repassword != repassword) {
+          alert("修改两次输入的不一致");
+          return false;/*阻止表单提交*/
+        }
+
+        $.ajax({
+          type: "post",
+          url: "/user/update",
+          async: 'false',
+          success: function (data) {
+            console.log(data)
+            if (data == "1") {
+              setTimeout(function () {
+                window.location.href = "/pages/login.html"
+              }, 300)
+
+            } else {
+              alert("修改失败")
+            }
+          },
+          data: {'username': username, 'password': password, 'repassword': repassword}
+        });
+        return false;
+
+      }
+  )
+
+
+</script>
 </body>
 
 </html>

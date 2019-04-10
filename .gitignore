@@ -6,7 +6,7 @@ HELP.md
 .apt_generated
 .classpath
 .factorypath
-.project
+src/main/resources/static/admin/.project
 .settings
 .springBeans
 .sts4-cache

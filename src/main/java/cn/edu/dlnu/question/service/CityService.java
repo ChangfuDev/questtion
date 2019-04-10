@@ -1,6 +1,7 @@
 package cn.edu.dlnu.question.service;
 
 import cn.edu.dlnu.question.entity.City;
+import cn.edu.dlnu.question.result.LayUiResultDataList;
 import java.util.List;
 
 public interface CityService {
@@ -10,4 +11,12 @@ public interface CityService {
   boolean add(City city);
 
   List<City> findAll();
+
+  City getById(Integer city_id);
+
+  LayUiResultDataList list(Integer page, Integer limit);
+
+  boolean delete(Integer[] ids);
+
+  boolean update(City city);
 }
