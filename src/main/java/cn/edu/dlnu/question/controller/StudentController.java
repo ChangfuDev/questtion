@@ -46,7 +46,7 @@ public class StudentController {
     student.setGrade(c_grade + "#" + a_grade);
     student.setName(username);
     student.setTotalGrade((Integer.valueOf(city.getArtisticGrade()) * a_grade
-        + Integer.valueOf(city.getCulturalGrade()) * c_grade) / 100.0 + "");
+        + Integer.valueOf(city.getCulturalGrade()) * c_grade) / 100.0 );
     return studentService.add(student);
   }
 

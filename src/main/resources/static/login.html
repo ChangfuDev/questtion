@@ -11,7 +11,7 @@
   function hideURLbar() {
     window.scrollTo(0, 1);
   } </script>
-  <link href="/static/css/style.css" rel='stylesheet' type='text/css'/>
+  <link href="css/style.css" rel='stylesheet' type='text/css'/>
   <!--webfonts-->
   <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
 </head>
@@ -35,7 +35,7 @@
   </div>
   <div class="clear"></div>
   <div class="avtar">
-    <img src="/static/images/avtar.png"/>
+    <img src="images/avtar.png"/>
   </div>
   <form id="Form" action="/user/login" method="post">
     <input type="text" class="number" maxlength="10" id="username" name="username"
@@ -76,8 +76,9 @@
           async: ' false',
           success: function (data) {
             console.log(data)
-            if (data == "success") {
+            if (data != "0") {
               sessionStorage.setItem("username", username)
+              sessionStorage.setItem("power",data)
               window.location.href = "/index.html"
             } else {
               alert("帐号或者密码错误")

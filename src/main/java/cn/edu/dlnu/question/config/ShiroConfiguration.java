@@ -26,12 +26,12 @@ public class ShiroConfiguration {
     shiroFilterFactoryBean.setSecurityManager(securityManager);
 //拦截器.
     Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-    filterChainDefinitionMap.put("/admin/pages/**", "authc");
-    filterChainDefinitionMap.put("/admin/index.html", "authc");
-    filterChainDefinitionMap.put("/index.html", "authc");
-    filterChainDefinitionMap.put("/select.html", "authc");
-    filterChainDefinitionMap.put("/static/**", "anon");
-    filterChainDefinitionMap.put("/**", "anon");
+
+
+    filterChainDefinitionMap.put("/user/login", "anon");
+    filterChainDefinitionMap.put("/images/**", "anon");
+    filterChainDefinitionMap.put("/css/**", "anon");
+    filterChainDefinitionMap.put("/**", "authc");
 //// 配置不会被拦截的链接 顺序判断
 //    filterChainDefinitionMap.put("/static/**", "anon");
 ////配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
@@ -40,7 +40,7 @@ public class ShiroConfiguration {
 ////<!-- authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问-->
 //    filterChainDefinitionMap.put("/user/**", "authc");
 //// 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-    shiroFilterFactoryBean.setLoginUrl("/pages/login.html");
+    shiroFilterFactoryBean.setLoginUrl("/login.html");
 // 登录成功后要跳转的链接
     shiroFilterFactoryBean.setSuccessUrl("/index.html");
 

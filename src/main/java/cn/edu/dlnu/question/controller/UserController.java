@@ -9,11 +9,10 @@ import cn.edu.dlnu.question.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import java.util.Arrays;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(maxAge = 3600)
 public class UserController {
 
   @Autowired
@@ -51,10 +51,19 @@ public class UserController {
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
     try {
       SecurityUtils.getSubject().login(token);
+      User byName = userService.findByName(username);
+      if(byName.getRoles()==null||byName.getRoles().size() < 1){
+        return "0";
+      }
+      for(Role r :byName.getRoles()){
+        if("admin".equals(r.getName())){
+          return "2";
+        }
+      }
+      return "1";
     } catch (Exception e) {
-      return "fail";
+      return "0";
     }
-    return "success";
   }
 
   @ApiOperation(value = "添加用户", notes = "通过User对象进行添加")

@@ -56,15 +56,10 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-             aria-haspopup="true" aria-expanded="false">用户中心<span id="username"></span> <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="#" class="col-md-12" data-toggle="modal" data-target="#myModal">修改密码</a>
-            </li>
-            <li><a href="/admin/index.html" class="col-md-12">相关管理</a>
-            </li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">退出登录</a></li>
+             aria-haspopup="true" aria-expanded="false">用户中心<span id="username"></span> <span
+              class="caret"></span></a>
+          <ul class="dropdown-menu" id="userDo">
+
           </ul>
         </li>
       </ul>
@@ -72,6 +67,7 @@
   </div><!-- /.container-fluid -->
 </nav>
 <div class="row " id="container" style="margin-top: 100px">
+
 </div>
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -115,11 +111,20 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
-
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+  asds
+</div>
 <script>
   window.onload = function (ev) {
     var username = sessionStorage.getItem("username")
+    var power = sessionStorage.getItem("power")
+    var usermessage = "<li><a href='#' class='col-md-12' data-toggle='modal' data-target='#myModal'>修改密码</a></li>"
+    usermessage  += power=='2'?"<li><a href='/admin/index.html' class='col-md-12'>相关管理</a></li>":""
+    usermessage += "<li role=\"separator\" class=\"divider\"></li><li><a href=\"#\">退出登录</a></li>"
+    $("#userDo").append(usermessage)
     $("#username").text(username)
+    citydata = []
     loadCity();
 
   }
@@ -130,7 +135,7 @@
     $.ajax({
       type: "get",
       url: "/city/year/" + year,
-      async: 'true',
+      async: 'false',
       success: function (data) {
         console.log(data)
         var a_data = "";
@@ -139,21 +144,53 @@
           for (var i = 0; i < data.length / 4; i++) {
             a_data += "<div class=\"row col-md-12\" style=\"margin-top: 50px\">"
             for (var j = 4 * i; j < 4 * i + 4 && j < data.length; j++) {
-              a_data += "<a href=\"select.html?data=" + data[j].id
-                  + "\" class=\"btn btn-primary btn-lg active \" role=\"button\"\n"
-                  + "       style=\"opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px\">"
-                  + data[j].name + "\n"
-                  + "    </a>";
+              // a_data += "<a class='btn btn-primary btn-lg active ' role='button' title='选择文理' data-trigger='focus' data-placement='bottom' data-toggle='popover' data-trigger='focus'  data-content=\"<a href='https://www.baidu.com/' >文科</a></br><a href='https://www.baidu.com/' >理科</a>\" data-html='true' style='opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px'>"+data[j].name+"</a>";
+              citydata[j] = data[j].name
+              if (data[j].type != '0') {
+                a_data += "<a class='btn btn-primary btn-lg active ' tabindex='" + j
+                    + "' role='button' title='选择文理' data-trigger='focus' data-placement='bottom' data-toggle='popover' data-trigger='focus'  data-content=\"<a onclick='toSelect("
+                    + j + ",1)' >文科</a></br><a onclick='toSelect(" + j
+                    + ",2)' >理科</a>\" data-html='true' style='opacity: 0.7;margin: 0px 20px 0px 20px;width: 150px'>"
+                    + data[j].name + "(分文理)</a>";
+              } else {
+                a_data += "<a class='btn btn-primary btn-lg active ' href='select.html?data="
+                    + data[j].id + "'  tabindex='" + j
+                    + "' role='button' style='opacity: 0.7;margin: 0px 20px 0px 20px;width: 100px'>"
+                    + data[j].name + "</a>";
+
+              }
             }
             a_data += "</div>"
 
           }
           console.log(a_data)
           $("#container").append(a_data)
+          $("[data-toggle='popover']").popover()
         } else {
           alert("未加载到数据")
         }
       }
+    });
+  }
+
+  function toSelect(name, type) {
+    console.log(citydata[name], type)
+    $.ajax({
+      type: "get",
+      url: "/city/getCity",
+      async: 'false',
+      success: function (data) {
+        console.log(data)
+        if (data != null) {
+          setTimeout(function () {
+            window.location.href = "/select.html?data=" + data.id
+          }, 300)
+
+        } else {
+          alert("获取失败")
+        }
+      },
+      data: {'name': citydata[name], 'type': type}
     });
   }
 
@@ -185,7 +222,7 @@
             console.log(data)
             if (data == "1") {
               setTimeout(function () {
-                window.location.href = "/pages/login.html"
+                window.location.href = "/login.html"
               }, 300)
 
             } else {

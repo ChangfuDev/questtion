@@ -46,6 +46,14 @@ public class CityController {
   }
 
 
+  @ApiOperation(value = "获取City", notes = "通过name和type获取")
+  @ApiImplicitParams({
+      @ApiImplicitParam(paramType = "body", name = "page", value = "当前页数", required = true, dataType = "string"),
+      @ApiImplicitParam(paramType = "body", name = "limit", value = "当前页的数据条数", required = true, dataType = "string")})
+  @GetMapping("/getCity")
+  public City getCity(@RequestParam("name") String name,@RequestParam("type")String  type) {
+    return cityService.getCity(name,type);
+  }
 
   @ApiOperation(value = "获取普通用户信息列表", notes = "通过当前页（page）和每页数据条数（limit）获取该页数据")
   @ApiImplicitParams({
@@ -80,16 +88,19 @@ public class CityController {
   @ApiImplicitParams({
       @ApiImplicitParam(paramType = "query", name = "name", value = "名称", required = true, dataType = "string"),
       @ApiImplicitParam(paramType = "query", name = "artisticGrade", value = "艺术成绩系数", required = true, dataType = "String"),
-      @ApiImplicitParam(paramType = "query", name = "culturalGrade", value = "文化成绩系数", required = true, dataType = "String")
+      @ApiImplicitParam(paramType = "query", name = "culturalGrade", value = "文化成绩系数", required = true, dataType = "String"),
+      @ApiImplicitParam(paramType = "query", name = "type", value = "分文理0不分 1文科 2理科", required = true, dataType = "String")
+
   })
   @PostMapping("/add")
   public boolean add( @RequestParam("name") String name,
       @RequestParam("artisticGrade") String artisticGrade,
-      @RequestParam("culturalGrade") String culturalGrade) {
+      @RequestParam("culturalGrade") String culturalGrade,@RequestParam("type")String type) {
     City city = new City();
     city.setArtisticGrade(artisticGrade);
     city.setCulturalGrade(culturalGrade);
     city.setName(name);
+    city.setType(type);
     return cityService.add(city);
   }
 
@@ -98,17 +109,20 @@ public class CityController {
       @ApiImplicitParam(paramType = "query", name = "id", value = "id", required = true, dataType = "string"),
       @ApiImplicitParam(paramType = "query", name = "name", value = "名称", required = true, dataType = "string"),
       @ApiImplicitParam(paramType = "query", name = "artisticGrade", value = "艺术成绩系数", required = true, dataType = "String"),
-      @ApiImplicitParam(paramType = "query", name = "culturalGrade", value = "文化成绩系数", required = true, dataType = "String")
+      @ApiImplicitParam(paramType = "query", name = "culturalGrade", value = "文化成绩系数", required = true, dataType = "String"),
+      @ApiImplicitParam(paramType = "query", name = "type", value = "分文理0不分 1文科 2理科", required = true, dataType = "String")
+
   })
   @PostMapping("/update")
   public boolean update(@RequestParam("id") String  id, @RequestParam("name") String name,
       @RequestParam("artisticGrade") String artisticGrade,
-      @RequestParam("culturalGrade") String culturalGrade) {
+      @RequestParam("culturalGrade") String culturalGrade,@RequestParam("type")String type) {
     City city = new City();
     city.setId(Integer.parseInt(id));
     city.setArtisticGrade(artisticGrade);
     city.setCulturalGrade(culturalGrade);
     city.setName(name);
+    city.setType(type);
     return cityService.update(city);
   }
 

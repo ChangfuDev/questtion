@@ -86,6 +86,15 @@
           align: 'center',
           fixed: 'left',
           sort: true
+        }, {
+          field: 'type',
+          title: '是否分文理',
+          align: 'center',
+          fixed: 'left',
+          templet: function (d) {
+            return d.type=='0'?'不分文理':d.type=='1'?'文科':'理科'
+          },
+          sort: true
         },{
           field: 'updated',
           title: '更新时间',

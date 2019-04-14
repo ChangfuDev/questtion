@@ -21,7 +21,7 @@
 
 <body>
 <div class="weadmin-body">
-  <form class="layui-form" method="post" enctype="multipart/form-data">
+  <form id="Form" class="layui-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" id="id" value=""/>
     <div class="layui-form-item">
       <label for="name" class="layui-form-label">
@@ -54,6 +54,15 @@
                class="layui-input">
       </div>
 
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">是否分文理</label>
+      <div class="layui-input-block" id="typeData">
+        <input type="radio" name="type" value="0" id="type0" title="不分文理">
+        <input type="radio" name="type" value="1" id="type1" title="文科" checked="checked">
+        <input type="radio" name="type" value="2" id="type2" title="理科">
+
+      </div>
     </div>
     <div class="layui-form-item">
       <button class="layui-btn" lay-filter="formDemo" lay-submit>确定</button>
@@ -108,13 +117,16 @@
           url: "http://127.0.0.1:20000/city/get/" + id,
           success: function (res) {
             url = "http://127.0.0.1:20000/city/update"
-            console.log(res)
-            var item = res
+
+            $("input[name=type][value=0]").attr("checked", item.type == 0 ? true : false);
+            $("input[name=type][value=1]").attr("checked", item.type == 1 ? true : false);
+            $("input[name=type][value=2]").attr("checked", item.type == 2 ? true : false);
             $("#id").attr("value", item.id)
             $("#name").attr("value", item.name)
             $("#artisticGrade").attr("value", item.artisticGrade)
             $("#culturalGrade").attr("value", item.culturalGrade)
-            form.render('select');
+            $("#typeData").append(type)
+            form.render();
           }
         })
 

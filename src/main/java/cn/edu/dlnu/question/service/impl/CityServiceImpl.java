@@ -3,7 +3,7 @@ package cn.edu.dlnu.question.service.impl;
 import cn.edu.dlnu.question.dao.CityMapper;
 import cn.edu.dlnu.question.entity.City;
 import cn.edu.dlnu.question.entity.CityExample;
-import cn.edu.dlnu.question.entity.User;
+import cn.edu.dlnu.question.entity.CityExample.Criteria;
 import cn.edu.dlnu.question.result.LayUiResultDataList;
 import cn.edu.dlnu.question.service.CityService;
 import com.github.pagehelper.PageHelper;
@@ -22,11 +22,8 @@ public class CityServiceImpl implements CityService {
 
   @Override
   public List<City> getAllByYear(Integer year) {
-    Calendar calendar = Calendar.getInstance();
-    calendar.set(year,0,0);
-    CityExample cityExample = new CityExample();
-    cityExample.createCriteria().andUpdatedGreaterThan(calendar.getTime());
-    List<City> cities = cityMapper.selectByExample(cityExample);
+
+    List<City> cities = cityMapper.getAllByYear(year);
     return cities;
   }
 
@@ -71,5 +68,18 @@ public class CityServiceImpl implements CityService {
   @Override
   public boolean update(City city) {
     return cityMapper.updateByPrimaryKeySelective(city) > 0;
+  }
+
+  @Override
+  public City getCity(String name, String type) {
+    CityExample cityExample = new CityExample();
+    Criteria criteria = cityExample.createCriteria();
+    criteria.andNameEqualTo(name);
+    criteria.andTypeEqualTo(type);
+    List<City> cities = cityMapper.selectByExample(cityExample);
+    if(cities != null && cities.size() > 0){
+      return cities.get(0);
+    }
+    return null;
   }
 }

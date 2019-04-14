@@ -1,6 +1,5 @@
 package cn.edu.dlnu.question.service.impl;
 
-import static sun.plugin2.os.windows.OSVERSIONINFOA.size;
 
 import cn.edu.dlnu.question.dao.PermissionMapper;
 import cn.edu.dlnu.question.dao.RoleMapper;
@@ -10,8 +9,6 @@ import cn.edu.dlnu.question.entity.PermissionExample;
 import cn.edu.dlnu.question.entity.PermissionExample.Criteria;
 import cn.edu.dlnu.question.entity.Role;
 import cn.edu.dlnu.question.entity.RoleExample;
-import cn.edu.dlnu.question.entity.Student;
-import cn.edu.dlnu.question.entity.StudentExample;
 import cn.edu.dlnu.question.entity.User;
 import cn.edu.dlnu.question.result.LayUiResultDataList;
 import cn.edu.dlnu.question.service.UserService;

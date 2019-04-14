@@ -19,4 +19,6 @@ public interface CityService {
   boolean delete(Integer[] ids);
 
   boolean update(City city);
+
+  City getCity(String name, String type);
 }
