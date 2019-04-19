@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>会员列表-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+  <title>城市列表</title>
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../layui/css/layui.css"/>
-  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+
   <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
   <!--[if lt IE 9]>
   <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -17,116 +17,83 @@
   <![endif]-->
 </head>
 
-<body>
+<body >
 
 <div class="weadmin-body">
- <span class="layui-breadcrumb" lay-separator="\" style="padding: 10px;color: black">
-  <a href="">首页</a>
-  <a href="">数据录入</a>
-<a href="" id="city">城市-文理</a>
-</span>
   <table class="layui-hide" id="test" lay-filter="test"></table>
-  <script type="text/html" id="zizeng">
-    {{d.LAY_TABLE_INDEX+1}}
-  </script>
   <script type="text/html" id="toolbarDemo">
-
     <div class="layui-btn-container" style="display: flex;flex-wrap: nowrap;">
       <button class="layui-btn layui-btn-sm" lay-event="delete">批量删除</button>
       <button class="layui-btn layui-btn-sm" lay-event="flash">刷新</button>
-      <button class="layui-btn layui-btn-sm" lay-event="flash">查找</button>
-      <button class="layui-btn layui-btn-sm" lay-event="flash">添加并查找</button>
     </div>
-
   </script>
   <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
-
   </script>
-
 </div>
 <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
 <script src="../../layui/layui.js" charset="utf-8"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
-  function getIds(data) {
-    var ids = [];
-    for (var i = 0; i < data.length; i++) {
-      ids.push(data[i].id)
-    }
-    return ids;
-  }
 
-  layui.use(['table', 'element'], function () {
-    url = "http://127.0.0.1:20000/student/list"
+
+  layui.use('table', function () {
     var table = layui.table;
-    var element = layui.element;
-
-    function getParams(key) {
-      var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-      var r = window.location.search.substr(1).match(reg);
-      if (r != null) {
-        return unescape(r[2]);
+    function flashPage() {
+      table.reload()
+    }
+    function getIds(data) {
+      var ids = [];
+      for (var i = 0; i < data.length; i++) {
+        ids.push(data[i].id)
       }
-      return null;
-    };
-    var id = getParams("id");
-
-    console.log(id)
-    $("#city").text("全部")
-    if (id != null) {
-      url = "/student/listByCity/" + id;
-      loadSession();
+      return ids;
     }
     table.render({
       elem: '#test',
-      url: url,
+      url: '/city/list',
       toolbar: '#toolbarDemo',
-      id: 'listReload',
       methpd: "get",
+      id: 'listReload',
       title: '用户数据表',
       cols: [
         [{
           type: 'checkbox',
           fixed: 'left'
         }, {
-         field: 'zizeng',
-          title: '排名',
+          field: 'id',
+          title: 'ID',
           fixed: 'left',
           align: 'center',
-          templet: '#zizeng'
+          sort: true
         }, {
           field: 'name',
-          title: '考生名',
+          title: '省市',
           align: 'center',
           fixed: 'left',
           sort: true
         }, {
-          field: 'grade',
-          title: '考生文化成绩',
+          field: 'culturalGrade',
+          title: '文化成绩系数（百分制）',
+          align: 'center',
+          fixed: 'left',
+          sort: true
+        }, {
+          field: 'artisticGrade',
+          title: '艺术成绩系数（百分制）',
+          align: 'center',
+          fixed: 'left',
+          sort: true
+        }, {
+          field: 'type',
+          title: '是否分文理',
           align: 'center',
           fixed: 'left',
           templet: function (d) {
-            return d.grade.split("#")[0]
+            return d.type=='0'?'不分文理':d.type=='1'?'文科':'理科'
           },
           sort: true
-        }, {
-          field: 'grade',
-          title: '考生艺术成绩',
-          align: 'center',
-          fixed: 'left',
-          templet: function (d) {
-            return d.grade.split("#")[1]
-          },
-          sort: true
-        }, {
-          field: 'totalGrade',
-          title: '考生总成绩',
-          align: 'center',
-          fixed: 'left',
-          sort: true
-        }, {
+        },{
           field: 'updated',
           title: '更新时间',
           align: 'center',
@@ -140,6 +107,7 @@
         }]
       ],
       page: true,
+      loading:true,
       response: {
         statusName: 'code' //数据状态的字段名称，默认：code
         , statusCode: 200 //成功的状态码，默认：0
@@ -152,13 +120,12 @@
     table.on('toolbar(test)', function (obj) {
       var checkStatus = table.checkStatus(obj.config.id);
       var data = checkStatus.data;
-      console.log(data)
       var ids = getIds(data);
       switch (obj.event) {
         case 'delete':
           $.ajax({
             type: "post",
-            url: "/student/delete/" + ids,
+            url: "/city/delete/"+ ids,
             async: true,
             success: function (res) {
               if (res) {
@@ -177,8 +144,7 @@
               }
             }
           });
-        case 'flash':
-          table.reload('listReload');
+        case 'flash': table.reload('listReload');
       }
       ;
     });
@@ -190,20 +156,20 @@
       if (obj.event === 'delete') {
         $.ajax({
           type: "post",
-          url: "/student/delete/" + data.id,
+          url: "/city/delete/" + data.id,
           async: true,
           success: function (res) {
             if (res) {
               layer.open({
                 type: 1,
-                title: "删除成功",
+                title: "下架成功",
                 time: 500
               })
               $(".layui-laypage-btn")[0].click();
             } else {
               layer.open({
                 type: 1,
-                title: "删除失败",
+                title: "下架失败",
                 time: 500
               })
             }
@@ -220,12 +186,6 @@
       }
     });
   });
-
-  function loadSession() {
-    var city = sessionStorage.getItem("city")
-    var type = sessionStorage.getItem("type")
-    $("#city").text(city + "-" + (type == 0 ? '综合' : type == 1 ? "艺术文" : "艺术理"))
-  }
 </script>
 </body>
 

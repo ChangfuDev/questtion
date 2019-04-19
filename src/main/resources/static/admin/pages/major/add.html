@@ -25,36 +25,20 @@
     <input type="hidden" name="id" id="id" value=""/>
     <div class="layui-form-item">
       <label for="name" class="layui-form-label">
-        <span class="we-red">*</span>考生名
+        <span class="we-red">*</span>专业名称
       </label>
       <div class="layui-input-inline">
         <input type="text" id="name" name="name" lay-verify="required" autocomplete="off"
                class="layui-input">
       </div>
     </div>
-
-    <div class="layui-form-item">
-      <label for="artisticGrade" class="layui-form-label">
-        <span class="we-red">*</span>艺术成绩
-      </label>
-      <div class="layui-input-inline">
-        <input type="number" id="artisticGrade" pattern="/^\d+$/" name="artisticGrade"
-               lay-verify="required"
-               autocomplete="off" class="layui-input">
+    <div class="layui-form-item layui-form-text">
+      <label class="layui-form-label">专业内容</label>
+      <div class="layui-input-block">
+        <textarea placeholder="请输入内容" class="layui-textarea" name="content" id="content"></textarea>
       </div>
-
     </div>
-    <div class="layui-form-item">
-      <label for="culturalGrade" class="layui-form-label">
-        <span class="we-red">*</span>文化成绩
-      </label>
-      <div class="layui-input-inline">
-        <input type="number" id="culturalGrade" pattern="/^\d+$/" placeholder=""
-               name="culturalGrade" lay-verify="required" autocomplete="off"
-               class="layui-input">
-      </div>
 
-    </div>
 
     <div class="layui-form-item">
       <button class="layui-btn" lay-filter="formDemo" lay-submit>确定</button>
@@ -64,7 +48,7 @@
 <script src="../../layui/layui.js" charset="utf-8"></script>
 
 <script>
-  var url = "/student/add"
+  var url = "/city/add"
   layui.use('form', function () {
     var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
     function getParams(key) {
@@ -75,28 +59,7 @@
       }
       return null;
     };
-    //自定义验证规则
-    form.verify({
-      artisticGrade: function (value) {
-        var uPattern = /^\d+$/;
-        if (!uPattern.test(value)) {
-          return '请输入0~100的整数';
-        } else if (parseInt(value) < 0 || value > 100) {
-          return '请输入0~100的整数';
-        }
-      }
-      , culturalGrade: function (value) {
-        var a_grade = parseInt($('#artisticGrade').val())
-        var uPattern = /^\d+$/;
-        if (!uPattern.test(value)) {
-          return '请输入0~100的整数';
-        } else if (parseInt(value) < 0 || value > 100) {
-          return '请输入0~100的整数';
-        } else if (a_grade + parseInt(value) != 100) {
-          return '两系数之和应为100';
-        }
-      }
-    });
+
     //获取编辑时的初始信息
     $(function () {
       console.log(window.location)
@@ -106,15 +69,18 @@
           type: 'get',
           dataType: 'json',
           contentType: 'application/json',
-          url: "/student/get/" + id,
+          url: "/city/get/" + id,
           success: function (res) {
-            url = "/student/update"
+            url = "/city/update"
             console.log(res)
             var item = res
+            $("input[name=type][value=0]").attr("checked", item.type == 0 ? true : false);
+            $("input[name=type][value=1]").attr("checked", item.type == 1 ? true : false);
+            $("input[name=type][value=2]").attr("checked", item.type == 2 ? true : false);
             $("#id").attr("value", item.id)
             $("#name").attr("value", item.name)
-            $("#artisticGrade").attr("value", item.grade.split('#')[0])
-            $("#culturalGrade").attr("value", item.grade.split('#')[1])
+            $("#artisticGrade").attr("value", item.artisticGrade)
+            $("#culturalGrade").attr("value", item.culturalGrade)
             form.render();
           }
         })

@@ -41,11 +41,11 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="L_pass" class="layui-form-label">
+              <label for="pass" class="layui-form-label">
                   <span class="we-red">*</span>密码
               </label>
               <div class="layui-input-inline">
-                  <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
+                  <input type="text" id="pass" name="pass" required="" lay-verify="pass"
                   autocomplete="off" class="layui-input">
               </div>
               <div class="layui-form-mid layui-word-aux">
@@ -53,16 +53,15 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="L_repass" class="layui-form-label">
+              <label for="repass" class="layui-form-label">
                   <span class="we-red">*</span>确认密码
               </label>
               <div class="layui-input-inline">
-                  <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
+                  <input type="password" id="repass" name="repass" required="" lay-verify="repass"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="L_repass" class="layui-form-label"></label>
               <button  class="layui-btn" lay-filter="add" lay-submit="">增加</button>
           </div>
       </form>
@@ -88,6 +87,42 @@
                     return '两次密码不一致';
                 }
             }
+          });
+          function getParams(key) {
+            var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+              return unescape(r[2]);
+            }
+            return null;
+          };
+//获取编辑时的初始信息
+          $(function () {
+            console.log(window.location)
+            var id = getParams("id");
+            if (id != null) {
+              $.ajax({
+                type: 'get',
+                dataType: 'json',
+                contentType: 'application/json',
+                url: "/user/get/" + id,
+                success: function (res) {
+                  url = "/user/update"
+                  console.log(res)
+                  var item = res
+                  var usertype = sessionStorage.getItem('usertype')
+                  $("input[name=r_id][value=admin]").attr("checked", usertype == 2 ? true : false);
+                  $("input[name=r_id][value=customer]").attr("checked", usertype == 1 ? true : false);
+                  $("#id").attr("value", item.id)
+                  $("#name").attr("value", item.name)
+                  $("#pass").attr("value", item.password)
+                  $("#repass").attr("value", item.password)
+                  form.render();
+                }
+              })
+
+            }
+
           });
 
           //监听提交

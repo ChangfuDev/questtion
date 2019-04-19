@@ -137,7 +137,8 @@
             }
 
           });
-        case 'flash': table.reload('listReload');
+        case 'flash':
+          table.reload('listReload');
       }
       ;
     });
@@ -169,6 +170,13 @@
 
           }
 
+        });
+      } else if (obj.event === 'edit') {
+        sessionStorage.setItem('usertype','1')
+        layer.open({
+          type: 2,
+          area: ['700px', '400px'],
+          content: 'add.html?id=' + data.id //这里content是一个普通的String
         });
       }
     });
