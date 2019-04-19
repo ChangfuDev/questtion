@@ -72,7 +72,7 @@
 <script src="../../layui/layui.js" charset="utf-8"></script>
 
 <script>
-  var url = "http://127.0.0.1:20000/city/add"
+  var url = "/city/add"
   layui.use('form', function () {
     var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
     function getParams(key) {
@@ -114,10 +114,11 @@
           type: 'get',
           dataType: 'json',
           contentType: 'application/json',
-          url: "http://127.0.0.1:20000/city/get/" + id,
+          url: "/city/get/" + id,
           success: function (res) {
-            url = "http://127.0.0.1:20000/city/update"
-
+            url = "/city/update"
+            console.log(res)
+            var item = res
             $("input[name=type][value=0]").attr("checked", item.type == 0 ? true : false);
             $("input[name=type][value=1]").attr("checked", item.type == 1 ? true : false);
             $("input[name=type][value=2]").attr("checked", item.type == 2 ? true : false);
@@ -125,7 +126,6 @@
             $("#name").attr("value", item.name)
             $("#artisticGrade").attr("value", item.artisticGrade)
             $("#culturalGrade").attr("value", item.culturalGrade)
-            $("#typeData").append(type)
             form.render();
           }
         })

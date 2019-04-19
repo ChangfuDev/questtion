@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>用户添加</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../static/css/font.css">
+		<link rel="stylesheet" href="../../static/css/weadmin.css">
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="weadmin-body">
+        <form class="layui-form" action="/user/add" method="post">
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="we-red">*</span>登录名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="username" required="username" lay-verify="username"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="we-red">*</span>将会成为您唯一的登入名
+              </div>
+          </div>
+
+          <div class="layui-form-item">
+              <label class="layui-form-label"><span class="we-red">*</span>角色</label>
+              <div class="layui-input-block">
+                <input type="radio" name="r_id" value="admin" lay-skin="primary" title="超级管理员" checked="">
+                <input type="radio" name="r_id" value="customer" lay-skin="primary" title="被咨询人员">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_pass" class="layui-form-label">
+                  <span class="we-red">*</span>密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  6到16个字符
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+                  <span class="we-red">*</span>确认密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label"></label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">增加</button>
+          </div>
+      </form>
+    </div>
+		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+    		layui.extend({
+					admin: '{/}../../static/js/admin'
+				});
+
+        layui.use(['form','layer','admin'], function(){
+          var form = layui.form,
+          	admin = layui.admin,
+          	layer = layui.layer;
+          	form.render();
+          //自定义验证规则
+          form.verify({
+            username:[/(.+){6,12}$/, '密码必须6到12位']
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+          });
+
+          //监听提交
+          form.on('submit(add)', function(data){
+            console.log(data);
+            if(data){
+              layer.alert('添加成功', {icon: 6,time:3000});
+              setTimeout(function () {
+                window.location.href="add.html"
+              },3000)
+            }else{
+              layer.alert('添加失败', {icon: 6,time:3000});
+            }
+
+            return false;
+          });
+        });
+    </script>
+  </body>
+
+</html>

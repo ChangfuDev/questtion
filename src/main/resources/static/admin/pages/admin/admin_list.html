@@ -55,7 +55,7 @@
 
     table.render({
       elem: '#test',
-      url: 'http://127.0.0.1:20000/user/admin/list',
+      url: '/user/admin/list',
       toolbar: '#toolbarDemo',
       id: 'listReload',
       methpd: "get",
@@ -115,7 +115,7 @@
         case 'delete':
           $.ajax({
             type: "post",
-            url: "http://127.0.0.1:20000/user/delete/" + ids,
+            url: "/user/delete/" + ids,
             async: true,
             success: function (res) {
               if (res) {
@@ -149,7 +149,7 @@
       if (obj.event === 'delete') {
         $.ajax({
           type: "post",
-          url: "http://127.0.0.1:20000/user/delete/" + data.id,
+          url: "/user/delete/" + data.id,
           async: true,
           success: function (res) {
             if (res) {
