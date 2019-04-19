@@ -4,6 +4,7 @@ import cn.edu.dlnu.question.entity.City;
 import cn.edu.dlnu.question.result.LayUiResultData;
 import cn.edu.dlnu.question.result.LayUiResultDataList;
 import cn.edu.dlnu.question.service.CityService;
+import cn.edu.dlnu.question.vo.CityVO;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -126,4 +127,8 @@ public class CityController {
     return cityService.update(city);
   }
 
+  @GetMapping("/getCities")
+  public List<CityVO> getCities(){
+    return cityService.getCities();
+  }
 }

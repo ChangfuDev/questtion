@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+  <title>HTML5 Canvas实现中国地图DEMO演示</title>
+
+  <style>
+    #china-map {
+      width: 1000px;
+      height: 800px;
+      margin: auto;
+    }
+
+    #box {
+      display: none;
+      background-color: goldenrod;
+      width: 180px;
+      height: 30px;
+    }
+
+    #box-title {
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
+
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/echarts.min.js"></script>
+  <script type="text/javascript" src="js/map/china.js"></script>
+
+</head>
+<body>
+<div style="text-align:center;clear:both;">
+</div>
+<div id="china-map"></div>
+
+<script>
+  var myChart = echarts.init(document.getElementById('china-map'));
+
+var tmpSeriesData=null;
+  $.ajax({
+    type: "get",
+    url: "/city/getCities",
+    async: 'false',
+    success: function (data) {
+      initEcharts("china", "中国",data);
+    }
+  });
+
+
+  // 初始化echarts
+  function initEcharts(pName, Chinese_,data) {
+     tmpSeriesData =data
+    var option = {
+      title: {
+        text: "",
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item',
+        enterable: true,
+        hideDelay: 100,
+        position: 'inside',
+        renderMode: 'html',
+        padding: 10,
+        backgroundColor: '#ffffff',
+        formatter: function (param) {
+          console.log(param)
+          return param.value > 1
+              ? "<a href='javascript:toSelect("+param.dataIndex+",1);'>艺术文</a><br><a href='javascript:toSelect("+param.dataIndex+",2);'>艺术理</a>"
+              : param.value == 1 ? "<a href='javascript:WithIdToSelect("+param.dataIndex+");'>已开启招生</a>"
+                  : "<a href='javascript:alert("+"未计划招生"+");'>未计划招生</a>";
+        }
+      },
+      visualMap: {
+        type: 'continuous',
+        orient: 'horizontal',
+        itemWidth: 10,
+        itemHeight: 80,
+        showLabel: true,
+        seriesIndex: [0],
+        min: 0,
+        max: 2,
+        inRange: {
+          color: ['#6FCF6A', '#FFFD64', '#FF5000']
+        },
+        textStyle: {
+          color: '#7B93A7'
+        },
+        bottom: 30,
+        left: 'left',
+      },
+      series: [
+        {
+          name: Chinese_ || pName,
+          type: 'map',
+          map: 'china',
+          mapType: pName,
+          roam: false,//是否开启鼠标缩放和平移漫游
+          data: tmpSeriesData,
+          top: "-8%",//组件距离容器的距离
+          zoom: 0.8,
+          selectedMode: 'single',
+          label: {
+            normal: {
+              show: true,//显示省份标签
+              textStyle: {color: "#000000"}//省份标签字体颜色
+            },
+            emphasis: {//对应的鼠标悬浮效果
+              show: true,
+              textStyle: {color: "#323232"}
+            }
+          },
+          itemStyle: {
+            normal: {
+              borderWidth: .5,//区域边框宽度
+              borderColor: '#000000',//区域边框颜色
+              areaColor: "#6FCF6A",//区域颜色
+
+            },
+
+            emphasis: {
+              borderWidth: .5,
+              borderColor: '#4b0082',
+              areaColor: "#ece39e",
+            }
+          },
+        }
+      ]
+
+    };
+
+    myChart.setOption(option);
+
+    myChart.off("click");
+
+
+  }
+  function toSelect(name, type) {
+    console.log(tmpSeriesData[name],type)
+    $.ajax({
+      type: "get",
+      url: "/city/getCity",
+      async: 'false',
+      success: function (data) {
+        console.log(data)
+        if (data != null) {
+          sessionStorage.setItem("city",tmpSeriesData[name].name)
+          sessionStorage.setItem("type",type)
+          setTimeout(function () {
+            window.location.href = "./pages/student/list.html?id=" + data.id
+          }, 300)
+        } else {
+          alert("获取失败")
+        }
+      },
+      data: {'name': tmpSeriesData[name].name, 'type': type}
+    });
+  }
+
+  function WithIdToSelect(id) {
+    var data = tmpSeriesData[id]
+    sessionStorage.setItem("city",data.name)
+    sessionStorage.setItem("type",0)
+    setTimeout(function () {
+      window.location.href = "./pages/student/list.html?id=" + data.id
+    }, 300)
+
+
+  }
+
+
+</script>
+
+</body>
+</html>

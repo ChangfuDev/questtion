@@ -20,16 +20,26 @@
 <body>
 
 <div class="weadmin-body">
+ <span class="layui-breadcrumb" lay-separator="\" style="padding: 10px;color: black">
+  <a href="">首页</a>
+  <a href="">数据录入</a>
+<a href="" id="city">城市-文理</a>
+</span>
   <table class="layui-hide" id="test" lay-filter="test"></table>
   <script type="text/html" id="toolbarDemo">
+
     <div class="layui-btn-container" style="display: flex;flex-wrap: nowrap;">
       <button class="layui-btn layui-btn-sm" lay-event="delete">批量删除</button>
       <button class="layui-btn layui-btn-sm" lay-event="flash">刷新</button>
+      <button class="layui-btn layui-btn-sm" lay-event="flash">查找</button>
+      <button class="layui-btn layui-btn-sm" lay-event="flash">添加并查找</button>
     </div>
+
   </script>
   <script type="text/html" id="barDemo">
-<!--    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>-->
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
+
   </script>
 </div>
 <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
@@ -44,13 +54,32 @@
     return ids;
   }
 
-  layui.use('table', function () {
+  layui.use(['table', 'element'], function () {
+    url = "/student/list"
     var table = layui.table;
+    var element = layui.element;
+
+    function getParams(key) {
+      var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if (r != null) {
+        return unescape(r[2]);
+      }
+      return null;
+    };
+    var id = getParams("id");
+
+    console.log(id)
+    $("#city").text("全部")
+    if (id != null) {
+      url = "/student/listByCity/" + id;
+      loadSession();
+    }
     table.render({
       elem: '#test',
-      url: '/student/list',
+      url: url,
       toolbar: '#toolbarDemo',
-      id:'listReload',
+      id: 'listReload',
       methpd: "get",
       title: '用户数据表',
       cols: [
@@ -144,7 +173,8 @@
               }
             }
           });
-        case 'flash': table.reload('listReload');
+        case 'flash':
+          table.reload('listReload');
       }
       ;
     });
@@ -186,6 +216,12 @@
       }
     });
   });
+
+  function loadSession() {
+    var city = sessionStorage.getItem("city")
+    var type = sessionStorage.getItem("type")
+    $("#city").text(city + "-" + (type == 0 ? '综合' : type == 1 ? "艺术文" : "艺术理"))
+  }
 </script>
 </body>
 

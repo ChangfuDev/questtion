@@ -13,4 +13,6 @@ public interface StudentService {
   List<Student> findAll();
 
   LayUiResultDataList list(Integer page, Integer limit);
+
+  LayUiResultDataList listByCity(Integer page, Integer limit, Integer id);
 }

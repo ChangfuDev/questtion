@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>管理员登录-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="staticss/font.css">
+  <link rel="stylesheet" href="staticss/weadmin.css">
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="lib/layui/layui.js" charset="utf-8"></script>
+  <style>
+    .code {
+      width: 150px;
+      height: 50px;
+
+    }
+  </style>
+</head>
+<body class="login-bg">
+
+<div class="login">
+  <div class="message">大连民族大学 艺术生咨询系统</div>
+  <div id="darkbannerwrap"></div>
+
+  <form method="post" class="layui-form" action="/user/login">
+    <input type="hidden" name="rememberMe" value="true">
+    <input name="username" placeholder="用户名" type="text" lay-verify="username" id="username" class="layui-input">
+    <hr class="hr15">
+    <input name="password" lay-verify="pass" placeholder="密码" type="password"
+           class="layui-input">
+    <hr class="hr15">
+    <div class="layui-row">
+      <div class="layui-col-lg6">
+        <input name="trycode" lay-verify="required" placeholder="验证码" type="text" id="trycode"
+               class="layui-input ">
+      </div>
+      <div class="layui-col-lg6 ">
+        <img alt="验证码" onclick="this.src='/kaptcha/defaultKaptcha?d='+new Date()*1"
+             src="/kaptcha/defaultKaptcha" class="layui-col-lg6 code" />
+      </div>
+    </div>
+    <hr class="hr15">
+    <input class="loginin" value="登录" lay-submit lay-filter="login" style="width:100%;"
+           type="button">
+    <hr class="hr20">
+
+  </form>
+</div>
+
+<script type="text/javascript">
+
+  layui.extend({
+    admin: '{/}./static/js/admin'
+  });
+  layui.use(['form', 'admin'], function () {
+    var form = layui.form
+        , admin = layui.admin;
+    // layer.msg('玩命卖萌中', function(){
+    //   //关闭后的操作
+    //   });
+    //监听提交
+    //自定义验证规则
+    form.verify({
+      username: [/(.+){6,12}$/, '用户名必须6到12位']
+      , pass: [/(.+){6,12}$/, '密码必须6到12位']
+    });
+    form.on('submit(login)', function (data) {
+
+      checkCode(data.field.trycode)
+      login(data.field)
+
+    });
+  });
+  function checkCode(value) {
+    $.ajax({
+      type: "post",
+      url: "/kaptcha/vrifyCode" ,
+      async: false,
+      data:{
+        'tryCode':value
+      },
+      success: function (res) {
+        console.log(res)
+        if ("ok"!=res){
+          layer.msg("验证码错误");
+          return false;
+        }
+        return true;
+
+      }
+
+    });
+  }
+  function login(data) {
+    $.ajax({
+      type: "post",
+      url: "/user/login",
+      async: ' false',
+      success: function (data) {
+        console.log(data)
+        if (data != "0") {
+          sessionStorage.setItem("username", $("#username").val())
+          sessionStorage.setItem("power",data)
+          window.location.href = "/index.html"
+        } else {
+          alert("帐号或者密码错误")
+          return false
+        }
+      },
+      data: data
+    });
+  }
+</script>
+<!-- 底部结束 -->
+</body>
+</html>

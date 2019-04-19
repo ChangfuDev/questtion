@@ -6,9 +6,9 @@ import cn.edu.dlnu.question.entity.CityExample;
 import cn.edu.dlnu.question.entity.CityExample.Criteria;
 import cn.edu.dlnu.question.result.LayUiResultDataList;
 import cn.edu.dlnu.question.service.CityService;
+import cn.edu.dlnu.question.vo.CityVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,5 +81,10 @@ public class CityServiceImpl implements CityService {
       return cities.get(0);
     }
     return null;
+  }
+
+  @Override
+  public List<CityVO> getCities() {
+    return cityMapper.getCities();
   }
 }

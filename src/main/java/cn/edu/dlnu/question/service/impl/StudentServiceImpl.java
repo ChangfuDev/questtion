@@ -61,4 +61,17 @@ public class StudentServiceImpl implements StudentService {
     PageInfo pageInfo = new PageInfo(students);
     return LayUiResultDataList.ok(students, pageInfo.getTotal());
   }
+
+  @Override
+  public LayUiResultDataList listByCity(Integer page, Integer limit, Integer id) {
+    PageHelper.startPage(page, limit);
+    StudentExample studentExample = new StudentExample();
+    studentExample.createCriteria().andCIdEqualTo(id);
+    List<Student> students = studentMapper.selectByExample(studentExample);
+    if (students == null) {
+      return LayUiResultDataList.error();
+    }
+    PageInfo pageInfo = new PageInfo(students);
+    return LayUiResultDataList.ok(students, pageInfo.getTotal());
+  }
 }

@@ -9,6 +9,11 @@
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
     <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="CityVO" type="cn.edu.dlnu.question.vo.CityVO" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="INTEGER" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -230,5 +235,8 @@
     <include refid="Base_Column_List" />
     from tb_city
     where updated > #{year} group by name
+  </select>
+  <select id="getCities" resultMap="CityVO">
+select id,name ,count(id) value from tb_city group by name
   </select>
 </mapper>

@@ -2,6 +2,7 @@ package cn.edu.dlnu.question.dao;
 
 import cn.edu.dlnu.question.entity.City;
 import cn.edu.dlnu.question.entity.CityExample;
+import cn.edu.dlnu.question.vo.CityVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,6 @@ public interface CityMapper {
     int updateByPrimaryKey(City record);
 
     List<City> getAllByYear(Integer year);
+
+  List<CityVO> getCities();
 }

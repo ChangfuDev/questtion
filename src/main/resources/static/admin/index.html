@@ -34,16 +34,14 @@
       <dl class="layui-nav-child">
 
         <dd>
-          <a onclick="WeAdminShow('切换帐号','../pages/login.html')">切换帐号</a>
+          <a onclick="WeAdminShow('切换帐号','/login.html')">切换帐号</a>
         </dd>
         <dd>
-          <a class="loginout" href="login.html">退出</a>
+          <a class="loginout" href="/logout">退出</a>
         </dd>
       </dl>
     </li>
-    <li class="layui-nav-item to-index">
-      <a href="/">前台首页</a>
-    </li>
+
   </ul>
 
 </div>
@@ -53,6 +51,21 @@
 <div class="left-nav">
   <div id="side-nav">
     <ul id="nav">
+      <li>
+        <a href="javascript:;">
+          <i class="iconfont">&#xe6b8;</i>
+          <cite>数据录入</cite>
+          <i class="iconfont nav_right">&#xe697;</i>
+        </a>
+        <ul class="sub-menu">
+          <li>
+            <a _href="./map.html">
+              <i class="iconfont">&#xe6a7;</i>
+              <cite>考生数据录入</cite>
+            </a>
+          </li>
+        </ul>
+      </li>
       <li>
         <a href="javascript:;">
           <i class="iconfont">&#xe6b8;</i>
@@ -90,49 +103,7 @@
           </li>
         </ul>
       </li>
-      <!--      <li>-->
-      <!--        <a href="javascript:;">-->
-      <!--          <i class="iconfont">&#xe705;</i>-->
-      <!--          <cite>内容管理</cite>-->
-      <!--          <i class="iconfont nav_right">&#xe697;</i>-->
-      <!--        </a>-->
-      <!--        <ul class="sub-menu">-->
-      <!--          <li>-->
-      <!--            <a _href="./pages/article/list.html">-->
-      <!--              <i class="iconfont">&#xe6a7;</i>-->
-      <!--              <cite>文章列表</cite>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--          <li>-->
-      <!--            <a _href="./pages/article/category.html">-->
-      <!--              <i class="iconfont">&#xe6a7;</i>-->
-      <!--              <cite>分类管理</cite>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--        </ul>-->
-      <!--      </li>-->
 
-      <!--      <li>-->
-      <!--        <a href="javascript:;">-->
-      <!--          <i class="iconfont">&#xe723;</i>-->
-      <!--          <cite>用户管理</cite>-->
-      <!--          <i class="iconfont nav_right">&#xe697;</i>-->
-      <!--        </a>-->
-      <!--        <ul class="sub-menu">-->
-      <!--          <li>-->
-      <!--            <a _href="./pages/user/list.html">-->
-      <!--              <i class="iconfont">&#xe6a7;</i>-->
-      <!--              <cite>用户列表</cite>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--          <li>-->
-      <!--            <a _href="./pages/user/add.html">-->
-      <!--              <i class="iconfont">&#xe6a7;</i>-->
-      <!--              <cite>添加用户</cite>-->
-      <!--            </a>-->
-      <!--          </li>-->
-      <!--        </ul>-->
-      <!--      </li>-->
       <li>
         <a href="javascript:;">
           <i class="iconfont">&#xe726;</i>
@@ -159,27 +130,31 @@
             </a>
           </li>
 
-          <!--          <li>-->
-          <!--            <a _href="./pages/admin/role.html">-->
-          <!--              <i class="iconfont">&#xe6a7;</i>-->
-          <!--              <cite>角色管理</cite>-->
-          <!--            </a>-->
-          <!--          </li>-->
-          <!--          <li>-->
-          <!--            <a _href="./pages/admin/cate.html">-->
-          <!--              <i class="iconfont">&#xe6a7;</i>-->
-          <!--              <cite>权限分类</cite>-->
-          <!--            </a>-->
-          <!--          </li>-->
-          <!--          <li>-->
-          <!--            <a _href="./pages/admin/rule.html">-->
-          <!--              <i class="iconfont">&#xe6a7;</i>-->
-          <!--              <cite>权限管理</cite>-->
-          <!--            </a>-->
-          <!--          </li>-->
         </ul>
       </li>
 
+      <li>
+        <a href="javascript:;">
+          <i class="layui-icon">&#xe621;</i>
+          <cite>专业管理</cite>
+          <i class="iconfont nav_right">&#xe697;</i>
+        </a>
+        <ul class="sub-menu">
+          <li>
+            <a _href="/swagger-ui.html">
+              <i class="layui-icon">&#xe656;</i>
+              <cite>专业介绍</cite>
+            </a>
+          </li>
+          <li>
+            <a _href="/swagger-ui.html">
+              <i class="layui-icon">&#xe656;</i>
+              <cite>专业添加</cite>
+            </a>
+          </li>
+
+        </ul>
+      </li>
 
       <li>
         <a href="javascript:;">
@@ -209,7 +184,7 @@
     </ul>
     <div class="layui-tab-content">
       <div class="layui-tab-item layui-show">
-        <iframe src='pages/student/list.html' frameborder="0" scrolling="yes"
+        <iframe src='./map.html' frameborder="0" scrolling="yes"
                 class="weIframe"></iframe>
       </div>
     </div>

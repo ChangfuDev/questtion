@@ -83,6 +83,18 @@ public class StudentController {
     }
     return LayUiResultDataList.error();
   }
+  @ApiOperation(value = "获取学生信息列表", notes = "通过当前页（page）和每页数据条数（limit）获取该页数据")
+  @ApiImplicitParams({
+      @ApiImplicitParam(paramType = "body", name = "page", value = "当前页数", required = true, dataType = "int"),
+      @ApiImplicitParam(paramType = "body", name = "limit", value = "当前页的数据条数", required = true, dataType = "int")})
+  @GetMapping("/listByCity/{id}")
+  public LayUiResultDataList listByCity(@RequestParam("page") Integer page,
+      @RequestParam("limit") Integer limit,@PathVariable("id")Integer id) {
+    if (page > 0 && limit > 0) {
+      return studentService.listByCity(page, limit,id);
+    }
+    return LayUiResultDataList.error();
+  }
 
 
 }

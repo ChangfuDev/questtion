@@ -9,6 +9,7 @@ import cn.edu.dlnu.question.service.UserService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,15 @@ public class UserController {
   })
   @PostMapping(value = "/login")
   public String login(@RequestParam("username") String username,
-      @RequestParam("password") String password, @RequestParam("rememberMe") Boolean rememberMe) {
+      @RequestParam("password") String password, @RequestParam("rememberMe") Boolean rememberMe,
+      String tryCode,
+      HttpServletRequest httpServletRequest) {
     System.out.println(username);
+    String rightCode = (String) httpServletRequest.getSession().getAttribute("rightCode");
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
+    if(rightCode.equals(tryCode)){
+      return "code";
+    }
     try {
       SecurityUtils.getSubject().login(token);
       User byName = userService.findByName(username);
