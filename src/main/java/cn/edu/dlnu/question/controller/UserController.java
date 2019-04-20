@@ -48,12 +48,12 @@ public class UserController {
   @PostMapping(value = "/login")
   public String login(@RequestParam("username") String username,
       @RequestParam("password") String password, @RequestParam("rememberMe") Boolean rememberMe,
-      String tryCode,
+      @RequestParam("tryCode")String tryCode,
       HttpServletRequest httpServletRequest) {
     System.out.println(username);
     String rightCode = (String) httpServletRequest.getSession().getAttribute("rightCode");
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
-    if(rightCode.equals(tryCode)){
+    if(!rightCode.equals(tryCode)){
       return "code";
     }
     try {
@@ -147,4 +147,6 @@ public class UserController {
       return LayUiResultData.fail("删除失败");
     }
   }
+
+
 }

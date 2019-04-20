@@ -59,7 +59,7 @@
           <i class="iconfont nav_right">&#xe697;</i>
         </a>
         <ul class="sub-menu">
-          <li>
+          <li class="power">
             <a _href="./pages/student/list.html">
               <i class="iconfont">&#xe6a7;</i>
               <cite>考生列表</cite>
@@ -74,7 +74,7 @@
           </li>
         </ul>
       </li>
-      <li>
+      <li class="power">
         <a href="javascript:;">
           <i class="iconfont">&#xe715;</i>
           <cite>省市管理</cite>
@@ -96,7 +96,7 @@
         </ul>
       </li>
 
-      <li>
+      <li class="power">
         <a href="javascript:;">
           <i class="iconfont">&#xe726;</i>
           <cite>用户管理</cite>
@@ -138,7 +138,7 @@
               <cite>专业介绍</cite>
             </a>
           </li>
-          <li>
+          <li class="power">
             <a _href="./pages/major/add.html">
               <i class="iconfont">&#xe6a7;</i>
               <cite>专业添加</cite>
@@ -148,7 +148,7 @@
         </ul>
       </li>
 
-      <li>
+      <li class="power">
         <a href="javascript:;">
           <i class="layui-icon">&#xe621;</i>
           <cite>接口管理</cite>
@@ -156,7 +156,7 @@
         </a>
         <ul class="sub-menu">
           <li>
-            <a _href="http://localhost:20000/swagger-ui.html">
+            <a _href="/swagger-ui.html">
               <i class="layui-icon">&#xe656;</i>
               <cite>查看接口</cite>
             </a>
@@ -207,6 +207,10 @@
   $(function () {
     var name = sessionStorage.getItem("username");
     $("#name").text(name)
+    var power = sessionStorage.getItem("power");
+    if(power != '2'){
+      $(".power").css('display','none')
+    }
   })
 </script>
 </body>

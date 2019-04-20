@@ -54,7 +54,9 @@ public class StudentServiceImpl implements StudentService {
   @Override
   public LayUiResultDataList list(Integer page, Integer limit) {
     PageHelper.startPage(page, limit);
-    List<Student> students = studentMapper.selectByExample(new StudentExample());
+    StudentExample studentExample = new StudentExample();
+    studentExample.setOrderByClause("total_grade desc");
+    List<Student> students = studentMapper.selectByExample(studentExample);
     if (students == null) {
       return LayUiResultDataList.error();
     }
@@ -66,12 +68,37 @@ public class StudentServiceImpl implements StudentService {
   public LayUiResultDataList listByCity(Integer page, Integer limit, Integer id) {
     PageHelper.startPage(page, limit);
     StudentExample studentExample = new StudentExample();
-    studentExample.createCriteria().andCIdEqualTo(id);
+    studentExample.setOrderByClause("total_grade desc");
+    Criteria criteria = studentExample.createCriteria();
+    criteria.andCIdEqualTo(id);
     List<Student> students = studentMapper.selectByExample(studentExample);
     if (students == null) {
       return LayUiResultDataList.error();
     }
     PageInfo pageInfo = new PageInfo(students);
     return LayUiResultDataList.ok(students, pageInfo.getTotal());
+  }
+
+  @Override
+  public LayUiResultDataList listByName(Integer page, Integer limit, String name) {
+    PageHelper.startPage(page, limit);
+    StudentExample studentExample = new StudentExample();
+    studentExample.createCriteria().andNameEqualTo(name);
+    List<Student> students = studentMapper.selectByExample(studentExample);
+    if (students == null) {
+      return LayUiResultDataList.error();
+    }
+    PageInfo pageInfo = new PageInfo(students);
+    return LayUiResultDataList.ok(students, pageInfo.getTotal());
+  }
+
+  @Override
+  public Student getById(Integer id) {
+    return studentMapper.selectByPrimaryKey(id);
+  }
+
+  @Override
+  public int update(Student student) {
+    return studentMapper.updateByPrimaryKeySelective(student);
   }
 }

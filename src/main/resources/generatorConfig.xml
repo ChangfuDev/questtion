@@ -62,33 +62,39 @@
         <!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample
             是否生成 example类 -->
 
-        <table schema="question" tableName="tb_student"
-               domainObjectName="Student" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true">
-        </table>
-        <table schema="question" tableName="tb_permission"
-               domainObjectName="Permission" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true">
-        </table>
-        <table schema="question" tableName="tb_city"
-               domainObjectName="City" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true">
-        </table>
-        <table schema="question" tableName="tb_roles"
-          domainObjectName="Role" enableCountByExample="true"
-          enableDeleteByExample="true" enableSelectByExample="true"
-          enableUpdateByExample="true">
-        </table>
-        <table schema="question" tableName="tb_user"
-               domainObjectName="User" enableCountByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               enableUpdateByExample="true">
-        </table>
-        <table schema="question" tableName="tb_message"
-          domainObjectName="Message" enableCountByExample="true"
+<!--        <table schema="question" tableName="tb_student"-->
+<!--               domainObjectName="Student" enableCountByExample="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--        </table>-->
+<!--        <table schema="question" tableName="tb_permission"-->
+<!--               domainObjectName="Permission" enableCountByExample="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--        </table>-->
+<!--        <table schema="question" tableName="tb_city"-->
+<!--               domainObjectName="City" enableCountByExample="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--        </table>-->
+<!--        <table schema="question" tableName="tb_roles"-->
+<!--          domainObjectName="Role" enableCountByExample="true"-->
+<!--          enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--          enableUpdateByExample="true">-->
+<!--        </table>-->
+<!--        <table schema="question" tableName="tb_user"-->
+<!--               domainObjectName="User" enableCountByExample="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--        </table>-->
+<!--        <table schema="question" tableName="tb_message"-->
+<!--          domainObjectName="Message" enableCountByExample="true"-->
+<!--          enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--          enableUpdateByExample="true">-->
+<!--        </table>-->
+
+        <table schema="question" tableName="tb_major"
+          domainObjectName="Major" enableCountByExample="true"
           enableDeleteByExample="true" enableSelectByExample="true"
           enableUpdateByExample="true">
         </table>

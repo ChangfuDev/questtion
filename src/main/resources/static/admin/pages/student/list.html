@@ -15,6 +15,11 @@
   <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
   <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+    label{
+      white-space:nowrap;
+    }
+  </style>
 </head>
 
 <body>
@@ -31,13 +36,49 @@
   </script>
   <script type="text/html" id="toolbarDemo">
 
-    <div class="layui-btn-container" style="display: flex;flex-wrap: nowrap;">
+    <div class="layui-btn-container" >
       <button class="layui-btn layui-btn-sm" lay-event="delete">批量删除</button>
       <button class="layui-btn layui-btn-sm" lay-event="flash">刷新</button>
-      <button class="layui-btn layui-btn-sm" lay-event="flash">查找</button>
-      <button class="layui-btn layui-btn-sm" lay-event="flash">添加并查找</button>
-    </div>
 
+    </div>
+<!--    <div style="height: 10px;"></div>-->
+<!--    <div class="layui-form-item layui-row" >-->
+<!--      <div class="layui-inline ">-->
+<!--        <label class="layui-form-label ">考生名</label>-->
+<!--        <div class="layui-input-inline ">-->
+<!--          <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="layui-inline ">-->
+<!--        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
+<!--        <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="layui-form-item layui-row">-->
+<!--      <div class="layui-inline ">-->
+<!--        <label class="layui-form-label ">验证手机</label>-->
+<!--        <div class="layui-input-inline ">-->
+<!--          <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="layui-inline ">-->
+<!--        <label class="layui-form-label  ">验证邮箱</label>-->
+<!--        <div class="layui-input-inline  ">-->
+<!--          <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="layui-inline ">-->
+<!--        <label class="layui-form-label  ">验证邮箱</label>-->
+<!--        <div class="layui-input-inline  ">-->
+<!--          <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="layui-inline ">-->
+<!--        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>-->
+<!--        <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+<!--      </div>-->
+    </div>
   </script>
   <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>

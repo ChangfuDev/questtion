@@ -27,7 +27,7 @@
   <div class="message">大连民族大学 艺术生咨询系统</div>
   <div id="darkbannerwrap"></div>
 
-  <form method="post" class="layui-form" action="/user/login">
+  <form method="post" class="layui-form" action="/user/login" id="form">
     <input type="hidden" name="rememberMe" value="true">
     <input name="username" placeholder="用户名" type="text" lay-verify="username" id="username" class="layui-input">
     <hr class="hr15">
@@ -36,7 +36,7 @@
     <hr class="hr15">
     <div class="layui-row">
       <div class="layui-col-lg6">
-        <input name="trycode" lay-verify="required" placeholder="验证码" type="text" id="trycode"
+        <input name="tryCode" lay-verify="required" placeholder="验证码" type="text" id="tryCode"
                class="layui-input ">
       </div>
       <div class="layui-col-lg6 ">
@@ -46,7 +46,7 @@
     </div>
     <hr class="hr15">
     <input class="loginin" value="登录" lay-submit lay-filter="login" style="width:100%;"
-           type="button">
+           type="button" >
     <hr class="hr20">
 
   </form>
@@ -70,27 +70,32 @@
       , pass: [/(.+){6,12}$/, '密码必须6到12位']
     });
     form.on('submit(login)', function (data) {
+      login(data.field);
 
-      checkCode(data.field.trycode)
-      login(data.field)
+
+
 
     });
   });
-  function checkCode(value) {
+  function checkCode(data) {
+
+    var username = $("#username").val()
     $.ajax({
       type: "post",
       url: "/kaptcha/vrifyCode" ,
       async: false,
       data:{
-        'tryCode':value
+        'tryCode':data.trycode
       },
       success: function (res) {
         console.log(res)
         if ("ok"!=res){
           layer.msg("验证码错误");
           return false;
+        }else{
+          login(data);
         }
-        return true;
+
 
       }
 
@@ -103,14 +108,21 @@
       async: ' false',
       success: function (data) {
         console.log(data)
-        if (data != "0") {
+        if (data != "0" && data != "code" ) {
           sessionStorage.setItem("username", $("#username").val())
           sessionStorage.setItem("power",data)
           window.location.href = "/index.html"
-        } else {
+        }else if(data == "0"){
           alert("帐号或者密码错误")
           return false
+        }else if(data == "code" ){
+          alert("验证码错误")
+          return false
+        }else {
+          alert("未知错误")
+          return false
         }
+
       },
       data: data
     });

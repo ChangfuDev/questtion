@@ -9,7 +9,7 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="stylesheet" href="../../layui/css/layui.css"/>
-
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
   <!--[if lt IE 9]>
   <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -29,11 +29,13 @@
   </script>
   <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="delete">删除</a>
+
   </script>
 </div>
 <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
 <script src="../../layui/layui.js" charset="utf-8"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+
 <script>
 
 
@@ -51,7 +53,7 @@
     }
     table.render({
       elem: '#test',
-      url: '/city/list',
+      url: '/major/list',
       toolbar: '#toolbarDemo',
       methpd: "get",
       id: 'listReload',
@@ -68,38 +70,17 @@
           sort: true
         }, {
           field: 'name',
-          title: '省市',
+          title: '专业名称',
           align: 'center',
           fixed: 'left',
           sort: true
         }, {
-          field: 'culturalGrade',
-          title: '文化成绩系数（百分制）',
+          field: 'content',
+          title: '专业介绍',
           align: 'center',
           fixed: 'left',
           sort: true
-        }, {
-          field: 'artisticGrade',
-          title: '艺术成绩系数（百分制）',
-          align: 'center',
-          fixed: 'left',
-          sort: true
-        }, {
-          field: 'type',
-          title: '是否分文理',
-          align: 'center',
-          fixed: 'left',
-          templet: function (d) {
-            return d.type=='0'?'不分文理':d.type=='1'?'文科':'理科'
-          },
-          sort: true
-        },{
-          field: 'updated',
-          title: '更新时间',
-          align: 'center',
-          fixed: 'left',
-          sort: true
-        }, {
+        },  {
           fixed: 'right',
           title: '操作',
           toolbar: '#barDemo'
@@ -125,7 +106,7 @@
         case 'delete':
           $.ajax({
             type: "post",
-            url: "/city/delete/"+ ids,
+            url: "/major/delete/"+ ids,
             async: true,
             success: function (res) {
               if (res) {
@@ -156,7 +137,7 @@
       if (obj.event === 'delete') {
         $.ajax({
           type: "post",
-          url: "/city/delete/" + data.id,
+          url: "/major/delete/" + data.id,
           async: true,
           success: function (res) {
             if (res) {

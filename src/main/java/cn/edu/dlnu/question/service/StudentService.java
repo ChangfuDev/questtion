@@ -15,4 +15,10 @@ public interface StudentService {
   LayUiResultDataList list(Integer page, Integer limit);
 
   LayUiResultDataList listByCity(Integer page, Integer limit, Integer id);
+
+  Student getById(Integer id);
+
+  int update(Student student);
+
+  LayUiResultDataList listByName(Integer page, Integer limit, String name);
 }
