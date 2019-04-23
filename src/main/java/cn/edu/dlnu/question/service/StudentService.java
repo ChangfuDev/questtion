@@ -21,4 +21,6 @@ public interface StudentService {
   int update(Student student);
 
   LayUiResultDataList listByName(Integer page, Integer limit, String name);
+
+  int getByName(String name);
 }

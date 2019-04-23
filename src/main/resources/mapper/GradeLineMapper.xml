@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.dlnu.question.dao.StudentMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.dlnu.question.entity.Student" >
+<mapper namespace="cn.edu.dlnu.question.dao.GradeLineMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.dlnu.question.entity.GradeLine" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="m_id" property="mId" jdbcType="INTEGER" />
     <result column="grade" property="grade" jdbcType="VARCHAR" />
-    <result column="total_grade" property="totalGrade" jdbcType="DOUBLE" />
     <result column="c_id" property="cId" jdbcType="INTEGER" />
-    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="getGradeLines" type="cn.edu.dlnu.question.vo.GradeLineVO">
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,15 +70,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, grade, total_grade, c_id, updated
+    id, m_id, grade, c_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.edu.dlnu.question.entity.StudentExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.edu.dlnu.question.entity.GradeLineExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb_student
+    from tb_gradeline
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,96 +89,76 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from tb_student
+    from tb_gradeline
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_student
+    delete from tb_gradeline
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.edu.dlnu.question.entity.StudentExample" >
-    delete from tb_student
+  <delete id="deleteByExample" parameterType="cn.edu.dlnu.question.entity.GradeLineExample" >
+    delete from tb_gradeline
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.edu.dlnu.question.entity.Student" >
-    insert into tb_student (id, name, grade, 
-      total_grade, c_id, updated
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
-      #{totalGrade,jdbcType=DOUBLE}, #{cId,jdbcType=INTEGER}, #{updated,jdbcType=TIMESTAMP}
-      )
+  <insert id="insert" parameterType="cn.edu.dlnu.question.entity.GradeLine" >
+    insert into tb_gradeline (id, m_id, grade, 
+      c_id)
+    values (#{id,jdbcType=INTEGER}, #{mId,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}, 
+      #{cId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.dlnu.question.entity.Student" useGeneratedKeys="true" keyProperty="id" >
-    insert into tb_student
+  <insert id="insertSelective" parameterType="cn.edu.dlnu.question.entity.GradeLine" >
+    insert into tb_gradeline
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="mId != null" >
+        m_id,
       </if>
       <if test="grade != null" >
         grade,
       </if>
-      <if test="totalGrade != null" >
-        total_grade,
-      </if>
       <if test="cId != null" >
         c_id,
-      </if>
-      <if test="updated != null" >
-        updated,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="mId != null" >
+        #{mId,jdbcType=INTEGER},
       </if>
       <if test="grade != null" >
         #{grade,jdbcType=VARCHAR},
       </if>
-      <if test="totalGrade != null" >
-        #{totalGrade,jdbcType=DOUBLE},
-      </if>
       <if test="cId != null" >
         #{cId,jdbcType=INTEGER},
       </if>
-      <if test="updated != null" >
-        #{updated,jdbcType=TIMESTAMP},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.edu.dlnu.question.entity.StudentExample" resultType="java.lang.Integer" >
-    select count(*) from tb_student
+  <select id="countByExample" parameterType="cn.edu.dlnu.question.entity.GradeLineExample" resultType="java.lang.Integer" >
+    select count(*) from tb_gradeline
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update tb_student
+    update tb_gradeline
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.mId != null" >
+        m_id = #{record.mId,jdbcType=INTEGER},
       </if>
       <if test="record.grade != null" >
         grade = #{record.grade,jdbcType=VARCHAR},
       </if>
-      <if test="record.totalGrade != null" >
-        total_grade = #{record.totalGrade,jdbcType=DOUBLE},
-      </if>
       <if test="record.cId != null" >
         c_id = #{record.cId,jdbcType=INTEGER},
-      </if>
-      <if test="record.updated != null" >
-        updated = #{record.updated,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -184,48 +166,39 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update tb_student
+    update tb_gradeline
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
+      m_id = #{record.mId,jdbcType=INTEGER},
       grade = #{record.grade,jdbcType=VARCHAR},
-      total_grade = #{record.totalGrade,jdbcType=DOUBLE},
-      c_id = #{record.cId,jdbcType=INTEGER},
-      updated = #{record.updated,jdbcType=TIMESTAMP}
+      c_id = #{record.cId,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dlnu.question.entity.Student" >
-    update tb_student
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.dlnu.question.entity.GradeLine" >
+    update tb_gradeline
     <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="mId != null" >
+        m_id = #{mId,jdbcType=INTEGER},
       </if>
       <if test="grade != null" >
         grade = #{grade,jdbcType=VARCHAR},
       </if>
-      <if test="totalGrade != null" >
-        total_grade = #{totalGrade,jdbcType=DOUBLE},
-      </if>
       <if test="cId != null" >
         c_id = #{cId,jdbcType=INTEGER},
-      </if>
-      <if test="updated != null" >
-        updated = #{updated,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.dlnu.question.entity.Student" >
-    update tb_student
-    set name = #{name,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="cn.edu.dlnu.question.entity.GradeLine" >
+    update tb_gradeline
+    set m_id = #{mId,jdbcType=INTEGER},
       grade = #{grade,jdbcType=VARCHAR},
-      total_grade = #{totalGrade,jdbcType=DOUBLE},
-      c_id = #{cId,jdbcType=INTEGER},
-      updated = #{updated,jdbcType=TIMESTAMP}
+      c_id = #{cId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getByName" resultType="java.lang.Integer">
-    select count(id) from tb_student where c_id = (select c_id from tb_student where name = #{name} ) and total_grade >= (select total_grade from tb_student where name = #{name});
+  <select id="getByCity" resultMap="getGradeLines">
+
+    select gl.grade grade,m.name name from tb_gradeline gl left join tb_major m on gl.m_id = m.id where gl.c_id=#{id}
   </select>
 </mapper>

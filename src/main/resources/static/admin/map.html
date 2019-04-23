@@ -72,8 +72,8 @@ var tmpSeriesData=null;
           console.log(param)
           return param.value > 1
               ? "<a href='javascript:toSelect("+param.dataIndex+",1);'>艺术文</a><br><a href='javascript:toSelect("+param.dataIndex+",2);'>艺术理</a>"
-              : param.value == 1 ? "<a href='javascript:WithIdToSelect("+param.dataIndex+");'>已开启招生</a>"
-                  : "<a href='javascript:alert("+"未计划招生"+");'>未计划招生</a>";
+              : param.value == 1 ? "<a href='javascript:WithIdToSelect("+param.dataIndex+");'>艺术综合</a>"
+                  : "";
         }
       },
       visualMap: {

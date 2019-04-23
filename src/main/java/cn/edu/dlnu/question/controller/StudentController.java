@@ -45,6 +45,7 @@ public class StudentController {
     Student student = new Student();
     student.setGrade(c_grade + "#" + a_grade);
     student.setName(username);
+    student.setcId(city_id);
     student.setTotalGrade((Integer.valueOf(city.getArtisticGrade()) * a_grade
         + Integer.valueOf(city.getCulturalGrade()) * c_grade) / 100.0);
     return studentService.add(student);
@@ -138,5 +139,10 @@ public class StudentController {
     student.setTotalGrade((Integer.valueOf(city.getArtisticGrade()) * artisticGrade
         + Integer.valueOf(city.getCulturalGrade()) * culturalGrade) / 100.0);
     return studentService.update(student);
+  }
+
+  @GetMapping("/getByName")
+  public int getByName(@RequestParam("name")String name){
+    return studentService.getByName(name);
   }
 }

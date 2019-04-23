@@ -19,39 +19,81 @@
       height: 50px;
 
     }
+    .bg {
+
+      /*background: #eeeeee 0 0 no-repeat;*/
+      background: url(../static/images/bg-02.png) no-repeat center;
+      background-position: 250px 10px;
+      background-size: 925px 711px ;
+      overflow: hidden;
+
+    }
+    .people{
+      position: absolute;
+      top: 0px;
+
+    }
+    .loginbtn{
+      background: url(../static/images/loginbtn.png) no-repeat center;
+      overflow: hidden;
+      width: 98px;
+      height: 109px;
+      background-color: #FFFFFF;
+    }
+    .footer_msg{
+      font-size: 13px;
+      font-weight: normal;
+      font-stretch: normal;
+      color: #000000;
+
+      font-family: "microsoft yahei";
+      letter-spacing: 0px;
+      text-align: center;
+
+    }
+    body {font-family: sans-serif;}
   </style>
 </head>
 <body class="login-bg">
+<div class="bg">
+  <div class="logo" style="padding: 20px">
+    <img src="../static/images/logo.png" alt="">
 
+  </div>
 <div class="login">
-  <div class="message">大连民族大学 艺术生咨询系统</div>
-  <div id="darkbannerwrap"></div>
-
-  <form method="post" class="layui-form" action="/user/login" id="form">
-    <input type="hidden" name="rememberMe" value="true">
-    <input name="username" placeholder="用户名" type="text" lay-verify="username" id="username" class="layui-input">
-    <hr class="hr15">
+<div class="">
+  <img src="../static/images/title.png" alt="">
+  <img src="../static/images/people.png" alt="" class="people">
+</div>
+  <form method="post" class="layui-form layui-bg-black" action="/user/login" id="form" style="padding: 40px;opacity: 0.8">
+    <input type="hidden" name="rememberMe" value="true" >
+    <input name="username" placeholder="用户名" type="text" lay-verify="username" id="username" class="layui-input layui-bg-black"  >
+    <hr class="hr15 layui-bg-black"  >
     <input name="password" lay-verify="pass" placeholder="密码" type="password"
-           class="layui-input">
-    <hr class="hr15">
-    <div class="layui-row">
-      <div class="layui-col-lg6">
+           class="layui-input layui-bg-black" >
+    <hr class="hr15 layui-bg-black" >
+    <div class="layui-row layui-bg-black" >
+      <div class="layui-col-lg6 layui-bg-black"  >
         <input name="tryCode" lay-verify="required" placeholder="验证码" type="text" id="tryCode"
-               class="layui-input ">
+               class="layui-input layui-bg-black"  >
       </div>
-      <div class="layui-col-lg6 ">
+      <div class="layui-col-lg6 layui-bg-black"  >
         <img alt="验证码" onclick="this.src='/kaptcha/defaultKaptcha?d='+new Date()*1"
              src="/kaptcha/defaultKaptcha" class="layui-col-lg6 code" />
       </div>
     </div>
-    <hr class="hr15">
-    <input class="loginin" value="登录" lay-submit lay-filter="login" style="width:100%;"
-           type="button" >
-    <hr class="hr20">
+    <hr class="hr15 layui-bg-black"  >
+    <input class="loginbtn layui-bg-black"  lay-submit  lay-filter="login"
+           type="button"   value="" title="登录" >
+
+
 
   </form>
-</div>
 
+</div>
+  <div  class="footer_msg" style="padding-top: 10px;overflow: hidden">Copyright © 2019.大连民族大学招生就业处.</div>
+<!--  <div  class="footer_msg" style="padding-top: 10px;overflow: hidden">张家豪制作</div>-->
+</div>
 <script type="text/javascript">
 
   layui.extend({
@@ -71,10 +113,6 @@
     });
     form.on('submit(login)', function (data) {
       login(data.field);
-
-
-
-
     });
   });
   function checkCode(data) {
@@ -117,6 +155,7 @@
           return false
         }else if(data == "code" ){
           alert("验证码错误")
+          window.location.href = "/login.html"
           return false
         }else {
           alert("未知错误")

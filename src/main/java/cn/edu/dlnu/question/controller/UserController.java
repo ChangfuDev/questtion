@@ -48,22 +48,22 @@ public class UserController {
   @PostMapping(value = "/login")
   public String login(@RequestParam("username") String username,
       @RequestParam("password") String password, @RequestParam("rememberMe") Boolean rememberMe,
-      @RequestParam("tryCode")String tryCode,
+      @RequestParam("tryCode") String tryCode,
       HttpServletRequest httpServletRequest) {
     System.out.println(username);
     String rightCode = (String) httpServletRequest.getSession().getAttribute("rightCode");
     UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
-    if(!rightCode.equals(tryCode)){
+    if (!rightCode.equals(tryCode)) {
       return "code";
     }
     try {
       SecurityUtils.getSubject().login(token);
       User byName = userService.findByName(username);
-      if(byName.getRoles()==null||byName.getRoles().size() < 1){
+      if (byName.getRoles() == null || byName.getRoles().size() < 1) {
         return "0";
       }
-      for(Role r :byName.getRoles()){
-        if("admin".equals(r.getName())){
+      for (Role r : byName.getRoles()) {
+        if ("admin".equals(r.getName())) {
           return "2";
         }
       }
@@ -76,13 +76,14 @@ public class UserController {
   @ApiOperation(value = "添加用户", notes = "通过User对象进行添加")
   @ApiImplicitParam(paramType = "body", name = "user", value = "User对象", required = true, dataType = "user")
   @PostMapping("/add")
-  public boolean add(@RequestParam("username") String username,@RequestParam("pass")String password,@RequestParam("r_id")String[] r_id) {
+  public boolean add(@RequestParam("username") String username,
+      @RequestParam("pass") String password, @RequestParam("r_id") String[] r_id) {
     User user = new User();
     user.setUsername(username);
     user.setPassword(password);
     int i = 0;
     try {
-      i = userService.add(user,r_id);
+      i = userService.add(user, r_id);
     } catch (Exception e) {
       return false;
     }
@@ -133,8 +134,9 @@ public class UserController {
     }
     return LayUiResultDataList.error();
   }
+
   @ApiOperation(value = "删除", notes = "通过学生id删除")
-  @ApiImplicitParam(paramType = "path", name = "ids", value = "学生id", required = true, dataType = "int",allowMultiple = true)
+  @ApiImplicitParam(paramType = "path", name = "ids", value = "学生id", required = true, dataType = "int", allowMultiple = true)
   @PostMapping("/delete/{ids}")
   public LayUiResultData delete(@PathVariable("ids") Integer... ids) {
     if (ids == null || ids.length < 1) {

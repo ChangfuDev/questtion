@@ -143,14 +143,14 @@
             if (res) {
               layer.open({
                 type: 1,
-                title: "下架成功",
+                title: "删除成功",
                 time: 500
               })
               $(".layui-laypage-btn")[0].click();
             } else {
               layer.open({
                 type: 1,
-                title: "下架失败",
+                title: "删除失败",
                 time: 500
               })
             }
@@ -162,7 +162,11 @@
         layer.open({
           type: 2,
           area: ['700px', '400px'],
-          content: 'add.html?id=' + data.id //这里content是一个普通的String
+          content: 'add.html?id=' + data.id,
+          end: function() {
+            //刷新页面,
+            location.reload();
+          }, //这里content是一个普通的String
         });
       }
     });

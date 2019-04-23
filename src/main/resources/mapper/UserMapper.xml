@@ -218,4 +218,5 @@
   <select id="list" resultMap="BaseResultMap">
      select u.id id,u.username username,u.password password, u.updated updated from tb_user u left join tb_roles r on u.id = r.u_id where r.name = #{admin}
   </select>
+
 </mapper>

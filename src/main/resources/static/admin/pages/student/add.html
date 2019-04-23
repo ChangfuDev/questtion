@@ -23,6 +23,7 @@
 <div class="weadmin-body">
   <form id="Form" class="layui-form" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" id="id" value=""/>
+    <input type="hidden" name="c_id" id="c_id" value=""/>
     <div class="layui-form-item">
       <label for="name" class="layui-form-label">
         <span class="we-red">*</span>考生名
@@ -113,8 +114,10 @@
             var item = res
             $("#id").attr("value", item.id)
             $("#name").attr("value", item.name)
+            $("#c_id").attr("value", item.cId)
             $("#artisticGrade").attr("value", item.grade.split('#')[0])
             $("#culturalGrade").attr("value", item.grade.split('#')[1])
+
             form.render();
           }
         })
@@ -135,7 +138,9 @@
           if (code == true) {
             layer.msg("添加成功")
             setTimeout(function () {
-              location.reload();
+              var index = parent.layer.getFrameIndex(window.name);
+              parent.layer.close(index);
+
             }, 1000)
           }
         },

@@ -101,4 +101,9 @@ public class StudentServiceImpl implements StudentService {
   public int update(Student student) {
     return studentMapper.updateByPrimaryKeySelective(student);
   }
+
+  @Override
+  public int getByName(String name) {
+    return studentMapper.getByName(name);
+  }
 }

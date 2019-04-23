@@ -114,7 +114,7 @@
                   $("input[name=r_id][value=admin]").attr("checked", usertype == 2 ? true : false);
                   $("input[name=r_id][value=customer]").attr("checked", usertype == 1 ? true : false);
                   $("#id").attr("value", item.id)
-                  $("#name").attr("value", item.name)
+                  $("#username").attr("value", item.username)
                   $("#pass").attr("value", item.password)
                   $("#repass").attr("value", item.password)
                   form.render();
@@ -128,14 +128,26 @@
           //监听提交
           form.on('submit(add)', function(data){
             console.log(data);
-            if(data){
-              layer.alert('添加成功', {icon: 6,time:3000});
-              setTimeout(function () {
-                window.location.href="add.html"
-              },3000)
-            }else{
-              layer.alert('添加失败', {icon: 6,time:3000});
-            }
+            $.ajax({
+              method: "post",
+              url: '/user/add',
+              async: 'false',
+              data: data.field,
+              success: function (result) {
+                var code = result
+                if (code == true) {
+                  layer.msg("添加成功")
+                  setTimeout(function () {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(index);
+                  }, 1000)
+                }
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+              }
+
+            });
+
 
             return false;
           });

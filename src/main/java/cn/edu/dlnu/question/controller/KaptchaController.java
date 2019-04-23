@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @CrossOrigin(maxAge = 3600)
-@RequestMapping("kaptcha")
+@RequestMapping("/kaptcha")
 public class KaptchaController {
 
   /**

@@ -16,4 +16,5 @@ public interface UserService {
   LayUiResultDataList list(Integer page, Integer limit, String admin);
 
   boolean delete(Integer[] ids);
+
 }

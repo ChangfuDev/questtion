@@ -28,7 +28,7 @@ public  class BaseAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass().getName().toString());
 
-	@Pointcut("execution(public * cn.edu.dlnu.question.*.*.*.*(..))")
+	@Pointcut("execution(public * cn.edu.dlnu.question.*..*.*(..))")
 	public void addLog(){
 	}
 

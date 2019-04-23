@@ -93,8 +93,15 @@
 <!--          enableUpdateByExample="true">-->
 <!--        </table>-->
 
-        <table schema="question" tableName="tb_major"
-          domainObjectName="Major" enableCountByExample="true"
+<!--        <table schema="question" tableName="tb_major"-->
+<!--          domainObjectName="Major" enableCountByExample="true"-->
+<!--          enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--          enableUpdateByExample="true">-->
+<!--        </table>-->
+
+
+        <table schema="question" tableName="tb_gradeline"
+          domainObjectName="GradeLine" enableCountByExample="true"
           enableDeleteByExample="true" enableSelectByExample="true"
           enableUpdateByExample="true">
         </table>

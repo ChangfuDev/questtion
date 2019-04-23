@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Lattice后台管理</title>
+  <title>艺术生咨询系统后台管理</title>
   <meta name="renderer" content="webkit|ie-comp|ie-stand">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
@@ -15,16 +15,30 @@
   <link rel="stylesheet" href="static/css/weadmin.css">
   <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript" src="layui/layui.js" charset="utf-8"></script>
+  <style>
 
+    .bg {
+      /*background: #eeeeee 0 0 no-repeat;*/
+      background: url(static/images/bg-01.png) no-repeat center;
+      background-size: cover;
+      overflow: hidden;
+    }
+    .content{
+      background-color:  rgba(255,255,255,0.8);
+    }
+    .sub-menu > li{
+      background-color: #dddddd
+    }
+  </style>
 </head>
 
-<body>
+<body class="bg">
 <!-- 顶部开始 -->
-<div class="container">
-  <div class="logo">
+<div class="container" >
+  <div class="logo" >
     <a href="index.html">艺术生咨询系统</a>
   </div>
-  <div class="left_open">
+  <div class="left_open" >
     <i title="展开左侧栏" class="iconfont">&#xe699;</i>
   </div>
 
@@ -32,10 +46,13 @@
     <li class="layui-nav-item">
       <a href="javascript:;">用户：<span id="name"></span> </a>
       <dl class="layui-nav-child">
-
+        <dd>
+          <a onclick="javascript:resetPassword()">修改密码</a>
+        </dd>
         <dd>
           <a onclick="WeAdminShow('切换帐号','/login.html')">切换帐号</a>
         </dd>
+
         <dd>
           <a class="loginout" href="/logout">退出</a>
         </dd>
@@ -48,36 +65,26 @@
 <!-- 顶部结束 -->
 <!-- 中部开始 -->
 <!-- 左侧菜单开始 -->
-<div class="left-nav">
+<div class="left-nav content" style="padding-top: 0px;">
   <div id="side-nav">
     <ul id="nav">
-
-      <li>
-        <a href="javascript:;">
+      <li >
+        <a _href="./map.html">
+          <i class="layui-icon">&#xe6b2;</i>
+          <cite>成绩录入</cite>
+        </a>
+      </li>
+      <li class="power" >
+        <a _href="./pages/student/list-all.html">
           <i class="iconfont">&#xe6b8;</i>
           <cite>考生管理</cite>
-          <i class="iconfont nav_right">&#xe697;</i>
-        </a>
-        <ul class="sub-menu">
-          <li class="power">
-            <a _href="./pages/student/list.html">
-              <i class="iconfont">&#xe6a7;</i>
-              <cite>考生列表</cite>
 
-            </a>
-          </li>
-          <li>
-            <a _href="./map.html">
-              <i class="iconfont">&#xe6a7;</i>
-              <cite>考生数据录入</cite>
-            </a>
-          </li>
-        </ul>
+        </a>
       </li>
-      <li class="power">
+      <li class="power" >
         <a href="javascript:;">
           <i class="iconfont">&#xe715;</i>
-          <cite>省市管理</cite>
+          <cite>考区管理</cite>
           <i class="iconfont nav_right">&#xe697;</i>
         </a>
         <ul class="sub-menu">
@@ -96,7 +103,7 @@
         </ul>
       </li>
 
-      <li class="power">
+      <li class="power" >
         <a href="javascript:;">
           <i class="iconfont">&#xe726;</i>
           <cite>用户管理</cite>
@@ -132,7 +139,7 @@
           <i class="iconfont nav_right">&#xe697;</i>
         </a>
         <ul class="sub-menu">
-          <li>
+          <li >
             <a _href="./pages/major/list.html">
               <i class="iconfont">&#xe6a7;</i>
               <cite>专业介绍</cite>
@@ -148,29 +155,29 @@
         </ul>
       </li>
 
-      <li class="power">
-        <a href="javascript:;">
-          <i class="layui-icon">&#xe621;</i>
-          <cite>接口管理</cite>
-          <i class="iconfont nav_right">&#xe697;</i>
-        </a>
-        <ul class="sub-menu">
-          <li>
-            <a _href="/swagger-ui.html">
-              <i class="layui-icon">&#xe656;</i>
-              <cite>查看接口</cite>
-            </a>
-          </li>
+<!--      <li class="power">-->
+<!--        <a href="javascript:;">-->
+<!--          <i class="layui-icon">&#xe621;</i>-->
+<!--          <cite>接口管理</cite>-->
+<!--          <i class="iconfont nav_right">&#xe697;</i>-->
+<!--        </a>-->
+<!--        <ul class="sub-menu">-->
+<!--          <li>-->
+<!--            <a _href="/swagger-ui.html">-->
+<!--              <i class="layui-icon">&#xe656;</i>-->
+<!--              <cite>查看接口</cite>-->
+<!--            </a>-->
+<!--          </li>-->
 
-        </ul>
-      </li>
+<!--        </ul>-->
+<!--      </li>-->
     </ul>
   </div>
 </div>
 <!-- 左侧菜单结束 -->
 <!-- 右侧主体开始 -->
-<div class="page-content">
-  <div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
+<div class="page-content content">
+  <div class="layui-tab tab content " lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
     <ul class="layui-tab-title" id="tabName">
       <li>我的桌面</li>
     </ul>
@@ -186,7 +193,7 @@
 <!-- 右侧主体结束 -->
 <!-- 中部结束 -->
 <!-- 底部开始 -->
-<div class="footer">
+<div class="footer " style="opacity: 0.7;">
   <div class="copyright">招生就业处</div>
 </div>
 <!-- 底部结束 -->
@@ -212,6 +219,15 @@
       $(".power").css('display','none')
     }
   })
+
+  function resetPassword() {
+    var name = sessionStorage.getItem("username");
+    layer.open({
+      type: 2,
+      area: ['700px', '400px'],
+      content: 'pages/admin/edit.html?username=' + name //这里content是一个普通的String
+    });
+  }
 </script>
 </body>
 
