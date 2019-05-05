@@ -138,14 +138,22 @@
                 layer.open({
                   type: 1,
                   title: "删除成功",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
                 $(".layui-laypage-btn")[0].click();
               } else {
                 layer.open({
                   type: 1,
                   title: "删除失败",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
               }
             }
@@ -170,14 +178,22 @@
               layer.open({
                 type: 1,
                 title: "删除成功",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
               $(".layui-laypage-btn")[0].click();
             } else {
               layer.open({
                 type: 1,
                 title: "删除失败",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
             }
 
@@ -212,7 +228,11 @@
         console.log(res)
         layer.open({
           title: '考生排名查询'
-          ,content: username+'-名次：'+res
+          ,content: username+'-名次：'+res,
+          end: function() {
+            //刷新页面,
+            layui.table.reload('listReload');
+          },
         });
 
 
@@ -248,7 +268,11 @@
                 console.log(res)
                 layer.open({
                   title: '考生排名查询'
-                  ,content: username+'-名次：'+res
+                  ,content: username+'-名次：'+res,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 });
 
 
@@ -319,6 +343,19 @@ function loadTable(url) {
           return d.grade.split("#")[1]
         },
       }, {
+        field: 'city',
+        title: '考区',
+        align: 'center',
+        fixed: 'left',
+      }, {
+        field: 'type',
+        title: '考试种类',
+        align: 'center',
+        fixed: 'left',
+        templet: function (d) {
+          return d=='0'?'艺术综合':d=='1'?'艺术文':'艺术理'
+        },
+      }, {
         field: 'totalGrade',
         title: '考生总成绩',
         align: 'center',
@@ -363,7 +400,7 @@ function loadTable(url) {
           title: '去年录取分数',
           offset: 'rb',
           shade: 0,
-          content: content
+          content: content,
         });
       },
       data:{

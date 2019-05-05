@@ -34,4 +34,5 @@ public interface UserMapper {
     List<User> list(String admin);
 
 
+  int delete(Integer id);
 }

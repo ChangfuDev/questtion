@@ -21,7 +21,12 @@ public class MajorServiceImpl implements MajorService {
 
   @Override
   public int add(Major major) {
-    return majorMapper.insertSelective(major);
+    try {
+      return majorMapper.insertSelective(major);
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+    return 0;
   }
 
   @Override

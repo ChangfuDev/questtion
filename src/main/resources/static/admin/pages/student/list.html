@@ -138,14 +138,22 @@
                 layer.open({
                   type: 1,
                   title: "删除成功",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
                 $(".layui-laypage-btn")[0].click();
               } else {
                 layer.open({
                   type: 1,
                   title: "删除失败",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
               }
             }
@@ -170,14 +178,22 @@
               layer.open({
                 type: 1,
                 title: "删除成功",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
               $(".layui-laypage-btn")[0].click();
             } else {
               layer.open({
                 type: 1,
                 title: "删除失败",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
             }
 
@@ -240,6 +256,9 @@
           url: "/student/add",
           async: false,
           success: function (res) {
+            if(res == '0'){
+              layer.msg("添加失败，请查看信息是否重复")
+            }else{
             $.ajax({
               type: "get",
               url: "/student/getByName",
@@ -248,7 +267,11 @@
                 console.log(res)
                 layer.open({
                   title: '考生排名查询'
-                  ,content: username+'-名次：'+res
+                  ,content: username+'-名次：'+res,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 });
 
 
@@ -259,7 +282,7 @@
 
             });
 
-
+            }
           },
           data:{
             'username':username,

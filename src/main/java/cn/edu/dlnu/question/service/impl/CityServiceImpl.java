@@ -29,7 +29,12 @@ public class CityServiceImpl implements CityService {
 
   @Override
   public boolean add(City city) {
-    return cityMapper.insertSelective(city) > 0;
+    try{
+      return cityMapper.insertSelective(city) > 0;
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+    return false;
   }
 
   @Override

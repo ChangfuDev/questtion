@@ -123,14 +123,22 @@
                 layer.open({
                   type: 1,
                   title: "删除成功",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
 
               } else {
                 layer.open({
                   type: 1,
                   title: "删除失败",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
               }
 
@@ -157,14 +165,22 @@
               layer.open({
                 type: 1,
                 title: "删除成功",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
 
             } else {
               layer.open({
                 type: 1,
                 title: "删除失败",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
             }
 

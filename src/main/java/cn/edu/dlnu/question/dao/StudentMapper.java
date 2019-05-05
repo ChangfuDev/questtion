@@ -29,4 +29,6 @@ public interface StudentMapper {
     int updateByPrimaryKey(Student record);
 
   int getByName(String name);
+
+  List<Student> list();
 }

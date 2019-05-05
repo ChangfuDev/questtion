@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 
+  labels:
+    app: 
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: 
+      labels:
+        app: 
+    spec:
+      containers:
+        - name: 
+          image: 
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 
+data:
+  key: 
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: 
+  labels:
+    app: 
+spec:
+  containers:
+    - name: 
+      image: 
+      imagePullPolicy: IfNotPresent
+  restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:
+spec:
+  selector:
+    app: 
+  ports:
+    - port: 8080
+  type: NodePort
+

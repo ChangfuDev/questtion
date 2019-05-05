@@ -9,6 +9,16 @@
     <result column="c_id" property="cId" jdbcType="INTEGER" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="list" type="cn.edu.dlnu.question.vo.StudentVO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="total_grade" property="totalGrade" jdbcType="DOUBLE" />
+    <result column="c_id" property="cId" jdbcType="INTEGER" />
+    <result column="updated" property="updated" jdbcType="TIMESTAMP" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -226,6 +236,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getByName" resultType="java.lang.Integer">
-    select count(id) from tb_student where c_id = (select c_id from tb_student where name = #{name} ) and total_grade >= (select total_grade from tb_student where name = #{name});
+    select count(id) from tb_student where c_id = (select c_id from tb_student where name = #{name} ) and total_grade >= (select total_grade from tb_student where name = #{name})
+  </select>
+  
+  <select id="list" resultMap="list">
+
+    select s.id id,s.name name,s.grade grade,s.total_grade total_grade,s.updated updated,c.name city,c.type type from tb_student s left join tb_city c on s.c_id = c.id order by s.total_grade desc
+
   </select>
 </mapper>

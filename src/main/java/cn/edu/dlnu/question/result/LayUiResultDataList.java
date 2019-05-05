@@ -114,6 +114,13 @@ public class LayUiResultDataList implements Serializable {
 		return new LayUiResultDataList(ResponseConstant.OK_CODE,ResponseConstant.OK_MESSAGE,data,total);
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "LayUiResultDataList{" +
+				"code='" + code + '\'' +
+				", msg='" + msg + '\'' +
+				", data=" + data +
+				", count=" + count +
+				'}';
+	}
 }

@@ -23,8 +23,12 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public int add(Student student) {
-    if (studentMapper.insertSelective(student) > 0) {
-      return student.getId();
+    try {
+      if (studentMapper.insertSelective(student) > 0) {
+        return student.getId();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
     return 0;
   }
@@ -54,9 +58,8 @@ public class StudentServiceImpl implements StudentService {
   @Override
   public LayUiResultDataList list(Integer page, Integer limit) {
     PageHelper.startPage(page, limit);
-    StudentExample studentExample = new StudentExample();
-    studentExample.setOrderByClause("total_grade desc");
-    List<Student> students = studentMapper.selectByExample(studentExample);
+
+    List<Student> students = studentMapper.list();
     if (students == null) {
       return LayUiResultDataList.error();
     }

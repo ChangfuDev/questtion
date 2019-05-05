@@ -17,6 +17,11 @@
   <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
   <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+    label{
+      white-space:nowrap;
+    }
+  </style>
 </head>
 
 <body>
@@ -27,7 +32,7 @@
       <label for="name" class="layui-form-label">
         <span class="we-red">*</span>省市
       </label>
-      <div class="layui-input-inline">
+      <div class="layui-input-inline layui-col-lg-offset1">
         <input type="text" id="name" name="name" lay-verify="required|name" autocomplete="off"
                class="layui-input">
       </div>
@@ -37,27 +42,27 @@
       <label for="artisticGrade" class="layui-form-label">
         <span class="we-red">*</span>艺术成绩系数（百分制）
       </label>
-      <div class="layui-input-inline">
+      <div class="layui-input-inline layui-col-lg-offset1">
         <input type="number" id="artisticGrade" pattern="/^\d+$/" name="artisticGrade"
                lay-verify="artisticGrade"
                autocomplete="off" class="layui-input">
       </div>
-
+      <div class="layui-form-mid layui-word-aux">%</div>
     </div>
     <div class="layui-form-item">
       <label for="culturalGrade" class="layui-form-label">
         <span class="we-red">*</span>文化成绩系数（百分制）
       </label>
-      <div class="layui-input-inline">
+      <div class="layui-input-inline layui-col-lg-offset1">
         <input type="number" id="culturalGrade" pattern="/^\d+$/" placeholder=""
                name="culturalGrade" lay-verify="culturalGrade" autocomplete="off"
                class="layui-input">
       </div>
-
+      <div class="layui-form-mid layui-word-aux">%</div>
     </div>
     <div class="layui-form-item">
-      <label class="layui-form-label">是否分文理</label>
-      <div class="layui-input-block" id="typeData">
+      <label class="layui-form-label"><span class="we-red">*</span>是否分文理</label>
+      <div class="layui-input-block layui-col-lg-offset1" id="typeData">
         <input type="radio" name="type" value="0" id="type0" title="不分文理">
         <input type="radio" name="type" value="1" id="type1" title="文科" checked="checked">
         <input type="radio" name="type" value="2" id="type2" title="理科">

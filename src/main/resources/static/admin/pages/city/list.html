@@ -90,7 +90,7 @@
           align: 'center',
           fixed: 'left',
           templet: function (d) {
-            return d.type=='0'?'不分文理':d.type=='1'?'文科':'理科'
+            return d.type=='0'?'艺术综合':d.type=='1'?'艺术文':'艺术理'
           },
           sort: true
         },{
@@ -132,14 +132,22 @@
                 layer.open({
                   type: 1,
                   title: "删除成功",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
 
               } else {
                 layer.open({
                   type: 1,
                   title: "删除失败",
-                  time: 500
+                  time: 500,
+                  end: function() {
+                    //刷新页面,
+                    layui.table.reload('listReload');
+                  },
                 })
               }
             }
@@ -163,14 +171,22 @@
               layer.open({
                 type: 1,
                 title: "删除成功",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
               // $(".layui-laypage-btn")[0].click();
             } else {
               layer.open({
                 type: 1,
                 title: "删除失败",
-                time: 500
+                time: 500,
+                end: function() {
+                  //刷新页面,
+                  layui.table.reload('listReload');
+                },
               })
             }
 

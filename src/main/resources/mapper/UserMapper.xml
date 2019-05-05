@@ -218,5 +218,7 @@
   <select id="list" resultMap="BaseResultMap">
      select u.id id,u.username username,u.password password, u.updated updated from tb_user u left join tb_roles r on u.id = r.u_id where r.name = #{admin}
   </select>
-
+<delete id="delete" parameterType="java.lang.Integer" >
+  delete tb_roles,tb_user from tb_roles ,tb_user where tb_roles.u_id=#{id} AND tb_user.id = #{id};
+</delete>
 </mapper>

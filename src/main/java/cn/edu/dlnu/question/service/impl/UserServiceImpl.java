@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
   @Override
   public User getById(Integer id) {
     System.out.println(id);
-    return userMapper.selectByPrimaryKey(1);
+
+    return userMapper.selectByPrimaryKey(id);
   }
 
   @Override
@@ -56,17 +57,20 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional(propagation = Propagation.REQUIRED)
-  public int add(User user,String[] r_id) throws Exception {
+  public int add(User user,String[] r_id) {
     if(userMapper.insertSelective(user) > 0){
       for (String s : r_id) {
         int id =user.getId();
         Role role = new Role();
         role.setName(s);
         role.setuId(id);
-        int i = roleMapper.insertSelective(role);
-        if(i < 1){
-          throw new Exception();
+        try{
+          roleMapper.insertSelective(role);
+        }catch (Exception e){
+          e.printStackTrace();
+          return 0;
         }
+
       }
       return user.getId();
     }
@@ -96,7 +100,7 @@ public class UserServiceImpl implements UserService {
     for (Integer id : ids) {
       RoleExample example = new RoleExample();
       example.createCriteria().andUIdEqualTo(id);
-      if (roleMapper.deleteByExample(example) < 0 &&  userMapper.deleteByPrimaryKey(id) < 1) {
+      if ( roleMapper.deleteByExample(example) < 1|| userMapper.deleteByPrimaryKey(id) < 1) {
         return false;
       }
     }

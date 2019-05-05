@@ -1,8 +1,6 @@
 package cn.edu.dlnu.question.service.impl;
 
 import cn.edu.dlnu.question.dao.GradeLineMapper;
-import cn.edu.dlnu.question.entity.GradeLine;
-import cn.edu.dlnu.question.entity.GradeLineExample;
 import cn.edu.dlnu.question.service.GradeLineService;
 import cn.edu.dlnu.question.vo.GradeLineVO;
 import java.util.List;

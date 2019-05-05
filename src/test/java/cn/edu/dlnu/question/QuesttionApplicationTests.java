@@ -5,6 +5,7 @@ import cn.edu.dlnu.question.entity.City;
 import cn.edu.dlnu.question.entity.Permission;
 import cn.edu.dlnu.question.entity.Student;
 import cn.edu.dlnu.question.entity.User;
+import cn.edu.dlnu.question.result.LayUiResultDataList;
 import cn.edu.dlnu.question.service.CityService;
 import cn.edu.dlnu.question.service.PermissionService;
 import cn.edu.dlnu.question.service.StudentService;
@@ -21,7 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Ignore
 public class QuesttionApplicationTests {
 
   @Autowired
@@ -76,4 +76,10 @@ public class QuesttionApplicationTests {
 
   }
 
+  @Test
+  public void testlist() {
+    LayUiResultDataList list = studentService.list(1, 10);
+    System.out.println(list);
+
+  }
 }
