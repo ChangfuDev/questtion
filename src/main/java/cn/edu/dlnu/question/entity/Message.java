@@ -30,4 +30,18 @@ public class Message {
     public void setCotent(String cotent) {
         this.cotent = cotent == null ? null : cotent.trim();
     }
+
+    public Message(String title, String cotent) {
+        this.title = title;
+        this.cotent = cotent;
+    }
+
+    public Message() {
+    }
+
+    public Message(Integer id, String title, String cotent) {
+        this.id = id;
+        this.title = title;
+        this.cotent = cotent;
+    }
 }

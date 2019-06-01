@@ -60,11 +60,12 @@ public class CityServiceImpl implements CityService {
   }
 
   @Override
-  @Transactional(propagation = Propagation.REQUIRED)
+  @Transactional(rollbackFor = RuntimeException.class,propagation = Propagation.REQUIRED)
+
   public boolean delete(Integer[] ids) {
     for (Integer id : ids) {
       if (cityMapper.deleteByPrimaryKey(id) < 1) {
-        return false;
+        throw new RuntimeException("删除失败");
       }
     }
     return true;

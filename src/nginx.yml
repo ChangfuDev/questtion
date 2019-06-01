@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-reployment
+  labels:
+    app: nginx-reployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: nginx-reployment
+      labels:
+        app: nginx-reployment
+    spec:
+      containers:
+        - name: nginx-reployment
+          image: nginx:1.7.9
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: nginx-reployment

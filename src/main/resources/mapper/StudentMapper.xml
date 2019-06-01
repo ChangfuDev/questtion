@@ -9,6 +9,10 @@
     <result column="c_id" property="cId" jdbcType="INTEGER" />
     <result column="updated" property="updated" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="countMap" type="cn.edu.dlnu.question.vo.CountVo">
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+  </resultMap>
   <resultMap id="list" type="cn.edu.dlnu.question.vo.StudentVO" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -243,5 +247,8 @@
 
     select s.id id,s.name name,s.grade grade,s.total_grade total_grade,s.updated updated,c.name city,c.type type from tb_student s left join tb_city c on s.c_id = c.id order by s.total_grade desc
 
+  </select>
+  <select id="count" resultMap="countMap">
+select sum(t.id) value,t.name name from (select count(s.id) id,c.name from tb_student s left join tb_city c on s.c_id= c.id group by s.c_id) t group by t.name;
   </select>
 </mapper>

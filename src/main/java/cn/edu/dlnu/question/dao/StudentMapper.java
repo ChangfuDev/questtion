@@ -2,6 +2,7 @@ package cn.edu.dlnu.question.dao;
 
 import cn.edu.dlnu.question.entity.Student;
 import cn.edu.dlnu.question.entity.StudentExample;
+import cn.edu.dlnu.question.vo.CountVo;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -31,4 +32,6 @@ public interface StudentMapper {
   int getByName(String name);
 
   List<Student> list();
+
+  List<CountVo> count();
 }

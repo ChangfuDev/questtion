@@ -34,6 +34,9 @@ public class ShiroConfiguration {
     filterChainDefinitionMap.put("/static/**", "anon");
     filterChainDefinitionMap.put("/kaptcha/**", "anon");
     filterChainDefinitionMap.put("/user/login", "anon");
+    filterChainDefinitionMap.put("/message/id/*", "anon");
+    filterChainDefinitionMap.put("/message/wx", "anon");
+    filterChainDefinitionMap.put("/student/getByName", "anon");
     filterChainDefinitionMap.put("/**", "authc");
 //// 配置不会被拦截的链接 顺序判断
 //    filterChainDefinitionMap.put("/static/**", "anon");

@@ -95,13 +95,13 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  @Transactional(propagation = Propagation.REQUIRED)
+  @Transactional(rollbackFor = RuntimeException.class,propagation = Propagation.REQUIRED)
   public boolean delete(Integer[] ids) {
     for (Integer id : ids) {
       RoleExample example = new RoleExample();
       example.createCriteria().andUIdEqualTo(id);
       if ( roleMapper.deleteByExample(example) < 1|| userMapper.deleteByPrimaryKey(id) < 1) {
-        return false;
+        throw  new RuntimeException("删除失败");
       }
     }
     return true;

@@ -41,7 +41,7 @@ public class MajorServiceImpl implements MajorService {
   }
 
   @Override
-  @Transactional(propagation = Propagation.REQUIRED)
+  @Transactional(rollbackFor = RuntimeException.class,propagation = Propagation.REQUIRED)
   public boolean delete(Integer[] ids) {
     for (Integer id : ids) {
       int i = majorMapper.deleteByPrimaryKey(id);

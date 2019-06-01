@@ -6,6 +6,8 @@ import cn.edu.dlnu.question.result.LayUiResultData;
 import cn.edu.dlnu.question.result.LayUiResultDataList;
 import cn.edu.dlnu.question.service.CityService;
 import cn.edu.dlnu.question.service.StudentService;
+import cn.edu.dlnu.question.vo.CityVO;
+import cn.edu.dlnu.question.vo.CountVo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -142,7 +144,13 @@ public class StudentController {
   }
 
   @GetMapping("/getByName")
-  public int getByName(@RequestParam("name")String name){
-    return studentService.getByName(name);
+  public String getByName(@RequestParam("name")String name){
+    return studentService.getByName(name)+"";
   }
+
+  @GetMapping("/count")
+  public List<CountVo> count(){
+  return studentService.count();
+  }
+
 }

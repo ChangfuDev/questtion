@@ -2,6 +2,7 @@ package cn.edu.dlnu.question.service;
 
 import cn.edu.dlnu.question.entity.Student;
 import cn.edu.dlnu.question.result.LayUiResultDataList;
+import cn.edu.dlnu.question.vo.CountVo;
 import java.util.List;
 
 public interface StudentService {
@@ -23,4 +24,6 @@ public interface StudentService {
   LayUiResultDataList listByName(Integer page, Integer limit, String name);
 
   int getByName(String name);
+
+  List<CountVo> count();
 }

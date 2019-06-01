@@ -6,6 +6,7 @@ import cn.edu.dlnu.question.entity.StudentExample;
 import cn.edu.dlnu.question.entity.StudentExample.Criteria;
 import cn.edu.dlnu.question.result.LayUiResultDataList;
 import cn.edu.dlnu.question.service.StudentService;
+import cn.edu.dlnu.question.vo.CountVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import java.util.Calendar;
@@ -34,11 +35,11 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  @Transactional(propagation = Propagation.REQUIRED)
+  @Transactional(rollbackFor = RuntimeException.class,propagation = Propagation.REQUIRED)
   public boolean delete(Integer[] ids) {
     for (Integer id : ids) {
       if (studentMapper.deleteByPrimaryKey(id) < 1) {
-        return false;
+        throw new RuntimeException("删除失败");
       }
     }
     return true;
@@ -108,5 +109,10 @@ public class StudentServiceImpl implements StudentService {
   @Override
   public int getByName(String name) {
     return studentMapper.getByName(name);
+  }
+
+  @Override
+  public List<CountVo> count() {
+    return studentMapper.count();
   }
 }

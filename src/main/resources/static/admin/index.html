@@ -50,7 +50,7 @@
           <a onclick="javascript:resetPassword()">修改密码</a>
         </dd>
         <dd>
-          <a onclick="WeAdminShow('切换帐号','/login.html')">切换帐号</a>
+          <a href="/pages/login.html">切换帐号</a>
         </dd>
 
         <dd>
@@ -74,7 +74,7 @@
           <cite>成绩录入</cite>
         </a>
       </li>
-      <li class="power" style="background-color: #1E9FFF">
+      <li  style="background-color: #1E9FFF">
         <a _href="./pages/student/list-all.html">
           <i class="iconfont">&#xe6b8;</i>
           <cite>考生管理</cite>
@@ -145,10 +145,32 @@
               <cite>专业介绍</cite>
             </a>
           </li>
-          <li class="power">
+          <li >
             <a _href="./pages/major/add.html">
               <i class="iconfont">&#xe6a7;</i>
               <cite>专业添加</cite>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+      <li style="background-color: #5FB878">
+        <a href="javascript:;">
+          <i class="layui-icon" style="color: #9933FA">&#xe705;</i>
+          <cite>公告管理</cite>
+          <i class="iconfont nav_right">&#xe697;</i>
+        </a>
+        <ul class="sub-menu" style="background-color: #7FE29A">
+          <li >
+            <a _href="./pages/message/list.html">
+              <i class="iconfont">&#xe6a7;</i>
+              <cite>公告列表</cite>
+            </a>
+          </li>
+          <li >
+            <a _href="./pages/message/add.html">
+              <i class="iconfont">&#xe6a7;</i>
+              <cite>公告添加</cite>
             </a>
           </li>
 
@@ -183,7 +205,7 @@
     </ul>
     <div class="layui-tab-content">
       <div class="layui-tab-item layui-show">
-        <iframe src='./map.html' frameborder="0" scrolling="yes"
+        <iframe src='./count.html' frameborder="0" scrolling="yes"
                 class="weIframe"></iframe>
       </div>
     </div>
