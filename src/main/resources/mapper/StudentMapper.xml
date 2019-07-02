@@ -249,6 +249,6 @@
 
   </select>
   <select id="count" resultMap="countMap">
-select sum(t.id) value,t.name name from (select count(s.id) id,c.name from tb_student s left join tb_city c on s.c_id= c.id group by s.c_id) t group by t.name;
+select sum(t.id) value,t.name name from (select count(s.id) id,c.name from tb_student s left join tb_city c on s.c_id= c.id group by s.c_id) t group by t.name order by value desc;
   </select>
 </mapper>

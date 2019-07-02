@@ -69,8 +69,8 @@ public class UserController {
       }
       return "1";
     } catch (Exception e) {
-      return "0";
-    }
+    return "0";
+  }
   }
 
   @ApiOperation(value = "添加用户", notes = "通过User对象进行添加")

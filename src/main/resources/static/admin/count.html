@@ -22,10 +22,8 @@
 <body>
 
 <div id="china-map"></div>
-<div id="china-map1"></div>
 <script>
   var myChart = echarts.init(document.getElementById('china-map'));
-  var myChart1 = echarts.init(document.getElementById('china-map1'));
   $.ajax({
     method: "get",
     url: "/student/count",
